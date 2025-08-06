@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { AccessibilityToolbar, SpeakableText } from "@/components/ui/accessibility";
+import { NavigationHeader } from "@/components/ui/navigation-header";
 import { ArrowLeft, BookOpen, Calculator, FlaskConical, Globe, Music, Palette, Play, Trophy } from "lucide-react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useState } from "react";
@@ -121,27 +122,22 @@ export default function SubjectSelection() {
     <div className="bg-kid-gradient min-h-screen">
       <AccessibilityToolbar />
       
+      {/* Navigation Header */}
+      <NavigationHeader 
+        title={`${gradeInfo[selectedGrade as keyof typeof gradeInfo]?.title} Subjects`}
+        progress={selectedGrade * 20}
+      />
+      
       <Container fluid className="py-4">
-        {/* Header */}
-        <header className="text-center mb-6">
-          <div className="flex items-center justify-center mb-4">
-            <button 
-              onClick={() => navigate('/grade-selection')}
-              className="absolute left-4 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all"
-            >
-              <ArrowLeft size={20} />
-            </button>
-            <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-xl animate-pulse-slow">
-              <span className="text-3xl">{gradeInfo[selectedGrade as keyof typeof gradeInfo]?.emoji}</span>
-            </div>
+        {/* Welcome Section */}
+        <div className="text-center mb-6">
+          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-xl animate-pulse-slow mx-auto mb-4">
+            <span className="text-3xl">{gradeInfo[selectedGrade as keyof typeof gradeInfo]?.emoji}</span>
           </div>
           <SpeakableText text={`Welcome to ${gradeInfo[selectedGrade as keyof typeof gradeInfo]?.title} subjects! Choose a subject to start your learning adventure.`}>
-            <h1 className="text-4xl font-bold text-gray-800 mb-2">
-              {gradeInfo[selectedGrade as keyof typeof gradeInfo]?.title} Subjects
-            </h1>
             <p className="text-xl text-gray-600">Choose your learning adventure!</p>
           </SpeakableText>
-        </header>
+        </div>
 
         {/* Core Subjects */}
         <section className="mb-8">

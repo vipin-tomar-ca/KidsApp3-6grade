@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
+import { NavigationHeader } from "@/components/ui/navigation-header";
 import { BookOpen, ArrowLeft, Play, Trophy, Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -60,27 +61,11 @@ export default function Reading() {
 
   return (
     <div className="bg-kid-gradient min-h-screen pb-20">
-      {/* Header */}
-      <header className="bg-white shadow-lg rounded-b-3xl p-4 mb-6">
-        <div className="flex items-center justify-between max-w-md mx-auto">
-          <div className="flex items-center space-x-3">
-            <button 
-              onClick={handleBackToSubjects}
-              className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
-            >
-              <ArrowLeft size={20} />
-            </button>
-            <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-700 rounded-2xl flex items-center justify-center animate-pulse-slow">
-              <BookOpen className="text-white" size={24} />
-            </div>
-            <h1 className="text-2xl font-bold text-gray-800">Reading</h1>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Trophy className="text-yellow-500" size={20} />
-            <span className="text-lg font-bold text-gray-700">80%</span>
-          </div>
-        </div>
-      </header>
+      {/* Navigation Header */}
+      <NavigationHeader 
+        title="Reading Adventures"
+        progress={80}
+      />
 
       <div className="max-w-md mx-auto px-4">
         {/* Welcome Message */}
