@@ -1,3 +1,24 @@
+/**
+ * Home Dashboard Component - Main Learning Portal for Grades 3-6
+ * 
+ * This component serves as the central hub for students to access all learning
+ * modules, track progress, view achievements, and navigate to different subjects.
+ * 
+ * @author Frontend Developer Team
+ * @version 1.0.0
+ * @category Core Pages
+ * @compliance COPPA, WCAG 2.1 AA
+ * @educational Supports independent navigation for ages 8-11
+ * 
+ * Key Features:
+ * - Age-appropriate visual design with large buttons and clear icons
+ * - Progress tracking with encouraging visual indicators
+ * - Achievement showcase to motivate continued learning
+ * - Subject modules: Math, Reading, Science, Art, Music, and Olympiads
+ * - Responsive design optimized for tablets and desktop
+ * - Accessibility features including keyboard navigation and screen reader support
+ */
+
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { ProgressBar } from "@/components/ui/progress-bar";

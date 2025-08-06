@@ -1,3 +1,25 @@
+/**
+ * AI Learning Assistant Component for Educational Hints
+ * 
+ * This component provides grade-appropriate educational hints to students using
+ * TensorFlow.js for on-device AI processing, ensuring COPPA compliance and 
+ * child safety by not transmitting data to external services.
+ * 
+ * @author Frontend Developer Team
+ * @version 1.0.0
+ * @category Educational Components  
+ * @compliance COPPA, WCAG 2.1 AA
+ * @educational Supports grades 3-6 with scaffolded learning assistance
+ * 
+ * Key Features:
+ * - On-device AI processing using TensorFlow.js
+ * - Grade-appropriate hint generation templates
+ * - Academic integrity monitoring through usage tracking
+ * - Accessibility support with keyboard navigation
+ * - Offline-capable with fallback hint templates
+ * - Parental oversight through usage logging
+ */
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
