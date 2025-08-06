@@ -17,13 +17,31 @@ import {
   Headphones
 } from "lucide-react";
 import { Container, Row, Col, Alert, Button as BootstrapButton, ProgressBar, Badge } from "react-bootstrap";
-import { MusicLesson, MusicExercise, musicEducationService } from '@/services/musicEducationApi';
 import { cn } from "@/lib/utils";
 import * as Tone from 'tone';
 
 interface MusicTheoryProps {
   grade: number;
   onLessonComplete?: (lessonId: string, score: number) => void;
+}
+
+interface MusicLesson {
+  id: string;
+  title: string;
+  description: string;
+  grade: 3 | 4 | 5 | 6;
+  category: 'notes' | 'rhythm' | 'scales' | 'chords' | 'theory';
+  difficulty: 1 | 2 | 3;
+  duration: number;
+  exercises: MusicExercise[];
+}
+
+interface MusicExercise {
+  id: string;
+  title: string;
+  type: 'listening' | 'rhythm-game' | 'note-identification' | 'scale-practice';
+  difficulty: 1 | 2 | 3;
+  instructions: string;
 }
 
 interface MusicSkillLevel {
@@ -115,7 +133,7 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
 
   const completeExercise = (exerciseId: string, userScore: number) => {
     setScore(prev => prev + userScore);
-    setCompletedExercises(prev => new Set([...prev, exerciseId]));
+    setCompletedExercises(prev => new Set([...Array.from(prev), exerciseId]));
     
     // Check if lesson is completed
     if (currentLesson) {
@@ -139,7 +157,7 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
           title: 'Musical Notes & Sounds',
           description: 'Learn about different musical notes and their sounds',
           grade: Math.min(grade, 6) as 3 | 4 | 5 | 6,
-          category: 'notes' as 'beginner' | 'intermediate' | 'advanced',
+          category: 'notes',
           difficulty: 1,
           duration: 10,
           exercises: [
@@ -148,8 +166,7 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
               title: 'Note Name Game',
               type: 'listening',
               difficulty: 1,
-              instructions: 'Listen to each note and select its name',
-              data: { notes: ['C', 'D', 'E', 'F', 'G', 'A', 'B'] }
+              instructions: 'Listen to each note and select its name'
             }
           ]
         },
@@ -158,17 +175,16 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
           title: 'Clap Along - Basic Rhythm',
           description: 'Feel the beat and clap simple rhythms',
           grade: Math.min(grade, 6) as 3 | 4 | 5 | 6,
-          category: 'rhythm' as 'beginner' | 'intermediate' | 'advanced',
+          category: 'rhythm',
           difficulty: 1,
           duration: 15,
           exercises: [
             {
               id: 'clap-rhythm-1',
               title: 'Clap the Beat',
-              type: 'rhythm',
+              type: 'rhythm-game',
               difficulty: 1,
-              instructions: 'Clap along with the steady beat',
-              data: { pattern: [true, false, true, false] }
+              instructions: 'Clap along with the steady beat'
             }
           ]
         },
@@ -177,17 +193,16 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
           title: 'Piano Keys Adventure',
           description: 'Explore the piano keyboard and play your first notes',
           grade: Math.min(grade, 6) as 3 | 4 | 5 | 6,
-          category: 'piano' as 'beginner' | 'intermediate' | 'advanced',
+          category: 'theory',
           difficulty: 2,
           duration: 12,
           exercises: [
             {
               id: 'piano-play-1',
               title: 'Find Middle C',
-              type: 'piano',
+              type: 'note-identification',
               difficulty: 1,
-              instructions: 'Click on the middle C key',
-              data: { targetNote: 'C4' }
+              instructions: 'Click on the middle C key'
             }
           ]
         },
@@ -196,17 +211,16 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
           title: 'Musical Scales',
           description: 'Learn about major and minor scales',
           grade: Math.min(grade, 6) as 3 | 4 | 5 | 6,
-          category: 'scales' as 'beginner' | 'intermediate' | 'advanced',
+          category: 'scales',
           difficulty: 3,
           duration: 18,
           exercises: [
             {
               id: 'scale-play-1',
               title: 'Play C Major Scale',
-              type: 'piano',
+              type: 'scale-practice',
               difficulty: 2,
-              instructions: 'Play each note of the C major scale in order',
-              data: { scale: ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5'] }
+              instructions: 'Play each note of the C major scale in order'
             }
           ]
         }
@@ -564,12 +578,13 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
             <Row className="g-3">
               {currentLesson.exercises.map((exercise) => (
                 <Col key={exercise.id} md={6}>
-                  <Card className="h-100 border-0 shadow-sm">
-                    <Card.Body className="text-center p-3">
+                  <div className="h-100 p-3 border-0 shadow-sm bg-white rounded">
+                    <div className="text-center">
                       <div className="mb-2">
-                        {exercise.type === 'piano' ? '🎹' : 
-                         exercise.type === 'rhythm' ? '🥁' : 
-                         exercise.type === 'listening' ? '👂' : '🎵'}
+                        {exercise.type === 'note-identification' ? '🎹' : 
+                         exercise.type === 'rhythm-game' ? '🥁' : 
+                         exercise.type === 'listening' ? '👂' : 
+                         exercise.type === 'scale-practice' ? '🎵' : '🎼'}
                       </div>
                       <h6 className="fw-bold">{exercise.title}</h6>
                       <p className="small text-muted">{exercise.instructions}</p>
@@ -577,17 +592,17 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
                         Difficulty: {exercise.difficulty}/3
                       </Badge>
                       <div>
-                        <Button 
+                        <BootstrapButton 
                           size="sm" 
                           onClick={() => startRhythmGame(exercise)}
                           className="rounded-pill"
                         >
                           <Play size={14} className="me-1" />
                           Start Exercise
-                        </Button>
+                        </BootstrapButton>
                       </div>
-                    </Card.Body>
-                  </Card>
+                    </div>
+                  </div>
                 </Col>
               ))}
             </Row>
