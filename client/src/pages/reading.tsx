@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
 import { NavigationHeader } from "@/components/ui/navigation-header";
+import MultimediaSection from "@/components/MultimediaSection";
 import { BookOpen, ArrowLeft, Play, Trophy, Clock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -187,6 +188,9 @@ export default function Reading() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Multimedia Educational Resources */}
+        <MultimediaSection subject="English" title="Reading & Language Arts Resources" />
 
         {/* Progress Overview */}
         <Card className="rounded-3xl shadow-lg mb-6">

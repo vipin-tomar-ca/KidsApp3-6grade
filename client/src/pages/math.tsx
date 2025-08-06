@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
 import { NavigationHeader } from "@/components/ui/navigation-header";
+import MultimediaSection from "@/components/MultimediaSection";
 import { Calculator, ArrowLeft, Play, Trophy } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -187,6 +188,9 @@ export default function Math() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Multimedia Educational Resources */}
+        <MultimediaSection subject="Math" title="Khan Academy & Educational Videos" />
 
         {/* Progress Overview */}
         <Card className="rounded-3xl shadow-lg mb-6">

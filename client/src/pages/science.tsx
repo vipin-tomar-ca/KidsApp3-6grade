@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
 import { NavigationHeader } from "@/components/ui/navigation-header";
+import MultimediaSection from "@/components/MultimediaSection";
 import { FlaskConical, ArrowLeft, Play, Trophy, Clock, Zap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -197,6 +198,9 @@ export default function Science() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Multimedia Educational Resources */}
+        <MultimediaSection subject="Science" title="PBS LearningMedia & Science Videos" />
 
         {/* Progress Overview */}
         <Card className="rounded-3xl shadow-lg mb-6">
