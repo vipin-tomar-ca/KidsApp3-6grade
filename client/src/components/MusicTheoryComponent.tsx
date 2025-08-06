@@ -91,7 +91,7 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
   });
 
   useEffect(() => {
-    initializeMusicTheory();
+    loadMusicLessons();
     setupAudioContext();
     return () => {
       if (rhythmTimerRef.current) {
@@ -163,6 +163,43 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
       setCurrentSkillLevel(level);
       setCurrentLesson(null);
       setUserLevel(level.id as any);
+    }
+  };
+
+  const loadMusicLessons = async () => {
+    setLoading(true);
+    try {
+      // Since the new progression system doesn't use the external API,
+      // we'll initialize with empty lessons or basic demo lessons
+      const basicLessons: MusicLesson[] = [
+        {
+          id: 'demo-lesson',
+          title: 'Welcome to Music Theory',
+          description: 'A sample lesson to get you started',
+          grade: grade,
+          category: 'theory',
+          difficulty: 1,
+          duration: 10,
+          exercises: [
+            {
+              id: 'welcome-exercise',
+              title: 'Welcome Exercise',
+              description: 'A simple welcome exercise',
+              type: 'listening',
+              difficulty: 1,
+              instructions: 'Welcome to music theory!',
+              data: {}
+            }
+          ]
+        }
+      ];
+      
+      // For now, we'll use the progression system from the music page
+      // instead of the old lesson system
+      setLoading(false);
+    } catch (error) {
+      console.error('Failed to load music lessons:', error);
+      setLoading(false);
     }
   };
 
