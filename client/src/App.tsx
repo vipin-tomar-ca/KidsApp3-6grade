@@ -20,6 +20,7 @@ import WorkspacePage from "@/pages/workspace";
 import ContentBrowser from "@/pages/content-browser";
 import ChildSafetyWrapper from "@/components/ChildSafetyWrapper";
 import ComplianceFooter from "@/components/ComplianceFooter";
+import IntegrityDemo from "@/pages/integrity-demo";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
             <Route path="/olympiad" element={<OlympiadPage />} />
             <Route path="/workspace" element={<WorkspacePage />} />
             <Route path="/content-browser" element={<ContentBrowser />} />
+            <Route path="/integrity-demo" element={<IntegrityDemo />} />
             <Route path="/library" element={<Library />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/settings" element={<Settings />} />

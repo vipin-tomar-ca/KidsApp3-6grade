@@ -4,7 +4,7 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { AchievementBadge } from "@/components/ui/achievement-badge";
 import { LoadingScreen } from "@/components/ui/loading-screen";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
-import { Calculator, BookOpen, FlaskConical, Palette, Gamepad2, Gift, Star, Rocket } from "lucide-react";
+import { Calculator, BookOpen, FlaskConical, Palette, Gamepad2, Gift, Star, Rocket, Shield } from "lucide-react";
 import { Link } from "wouter";
 import { cn } from "@/lib/utils";
 

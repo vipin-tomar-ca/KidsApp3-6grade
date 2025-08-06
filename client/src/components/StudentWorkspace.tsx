@@ -19,10 +19,16 @@ import {
   Star,
   CheckCircle,
   AlertCircle,
-  Lightbulb
+  Lightbulb,
+  Shield,
+  Target,
+  Brain
 } from "lucide-react";
-import { Container, Row, Col, Alert, Button as BootstrapButton } from "react-bootstrap";
+import { Container, Row, Col, Alert, Button as BootstrapButton, Modal, Form } from "react-bootstrap";
 import { cn } from "@/lib/utils";
+import IntegrityMonitor, { useIntegrityMonitoring } from './IntegrityMonitor';
+import QuizIntegrityWrapper from './QuizIntegrityWrapper';
+import { useChildSafety } from '@/hooks/useChildSafety';
 
 interface WorkspaceData {
   id: string;
@@ -42,8 +48,11 @@ interface FeedbackMessage {
 }
 
 const StudentWorkspace: React.FC = () => {
+  // Child safety integration
+  const { currentUser, isSubjectAllowed, checkTimeLimit } = useChildSafety(4); // Default grade 4
+
   // State management
-  const [activeTab, setActiveTab] = useState<'text' | 'math' | 'drawing'>('text');
+  const [activeTab, setActiveTab] = useState<'text' | 'math' | 'drawing' | 'quiz'>('text');
   const [textContent, setTextContent] = useState('');
   const [mathInput, setMathInput] = useState('');
   const [mathPreview, setMathPreview] = useState('');
@@ -53,6 +62,27 @@ const StudentWorkspace: React.FC = () => {
   const [wordCount, setWordCount] = useState(0);
   const [savedWorkspaces, setSavedWorkspaces] = useState<WorkspaceData[]>([]);
   const [showWorkspaceList, setShowWorkspaceList] = useState(false);
+  
+  // Academic integrity state
+  const [currentSubject, setCurrentSubject] = useState('math');
+  const [currentGrade, setCurrentGrade] = useState(4);
+  const [showQuizMode, setShowQuizMode] = useState(false);
+  const [activityType, setActivityType] = useState<'quiz' | 'writing' | 'worksheet' | 'creative'>('writing');
+
+  // Academic integrity monitoring
+  const {
+    feedback: integrityFeedback,
+    suspiciousEvents,
+    handleFeedback,
+    handleSuspiciousActivity,
+    createPasteHandler,
+    IntegrityMonitor: IntegrityMonitorComponent
+  } = useIntegrityMonitoring(
+    currentUser?.id || 'demo-user',
+    currentSubject,
+    activityType,
+    currentGrade
+  );
 
   // Refs
   const canvasRef = useRef<ReactSketchCanvasRef>(null);
@@ -474,7 +504,7 @@ const StudentWorkspace: React.FC = () => {
                         canvasColor="#FFFFFF"
                         backgroundImage=""
                         exportWithBackgroundImage={true}
-                        preserveBackgroundImageAspectRatio={true}
+                        preserveBackgroundImageAspectRatio="xMidYMid meet"
                         allowOnlyPointerType="all"
                       />
                     </div>
