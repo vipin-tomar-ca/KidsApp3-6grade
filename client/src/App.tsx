@@ -19,6 +19,7 @@ import OlympiadPage from "@/pages/olympiad";
 import CompetitionPage from "@/pages/competition";
 import WorkspacePage from "@/pages/workspace";
 import ContentBrowser from "@/pages/content-browser";
+import CreativeActivities from "@/components/CreativeActivities";
 import ChildSafetyWrapper from "@/components/ChildSafetyWrapper";
 import ComplianceFooter from "@/components/ComplianceFooter";
 import IntegrityDemo from "@/pages/integrity-demo";
@@ -48,6 +49,7 @@ function App() {
             <Route path="/competition" element={<CompetitionPage />} />
             <Route path="/workspace" element={<WorkspacePage />} />
             <Route path="/content-browser" element={<ContentBrowser />} />
+            <Route path="/creative" element={<CreativeActivities />} />
             <Route path="/integrity-demo" element={<IntegrityDemo />} />
             <Route path="/llm-demo" element={<LLMDemo />} />
             <Route path="/firebase-demo" element={<FirebaseDemo />} />

@@ -1,0 +1,33 @@
+Deliverables:
+
+Updated React app in Replit with integrated Grade 4 multimedia content.
+Functional ContentViewer component displaying images, videos, audio, and quizzes.
+Enhanced student workspace supporting assignments and Olympiad problems.
+Creative activities module with music and drawing tasks.
+Safety-compliant implementation with parental dashboard and academic integrity tools.
+Documentation in README.md and parental guide in Markdown.
+Test suite ensuring functionality, accessibility, and offline support.
+
+Success Metrics:
+
+100% of JSON datasource content is accessible in the app (online/offline).
+90% of users can navigate content viewer and workspace independently (tested via simulated interactions).
+Zero incidents of inappropriate content or PII collection.
+Attribution displayed for all CC-BY content in the app’s footer.
+
+Constraints:
+
+Optimize for Replit’s free-tier resource limits; use a paid plan if needed for API calls or Firebase.
+Ensure mobile responsiveness for low-end devices (e.g., 2GB RAM browsers).
+Complete integration within 1–2 weeks, assuming prior setup from earlier prompts.
+
+
+Implementation Notes
+
+Fetching Content: Use axios to fetch content from APIs (e.g., Pixabay, Wikimedia) and embed static URLs for non-API sources (e.g., PBS LearningMedia). Cache in localforage to support offline mode (Prompt 4).
+Content Viewer: Structure the ContentViewer component with tabs for subjects and topics using react-bootstrap Tabs. Render multimedia based on type (e.g., <video> for videos, <img> for images).
+Student Workspace: Extend react-quill for text-based inputs, react-katex for math problems, and react-sketch-canvas for drawing tasks. Integrate Olympiad problems with react-hook-form for interactive submissions.
+Creative Activities: Use react-audio-player for Free Music Archive tracks in rhythm games and react-sketch-canvas for Art for Kids Hub-inspired drawing tutorials.
+Safety: Filter content through a whitelist in the app’s logic (e.g., if (content.topic in ['math', 'science', ...])). Secure Firebase API keys in Replit’s Secrets (Prompt 7).
+Academic Integrity: Implement cheat detection by tracking react-quill input events and react-timer-hook timing, logging anomalies in localforage (Prompt 8).
+Testing: Use jest to test rendering of multimedia and form submissions. Verify offline functionality by simulating network disconnection in Replit’s web preview (Prompt 11).

@@ -1,0 +1,77 @@
+using React for a web-based learning app targeting Grade 4 students (ages 9–10), integrate a provided JSON datasource containing multimedia educational content (images, videos, audio, interactive quizzes, text) for Math, English, Science, Social Studies, Creative Activities, and Olympiad Preparation, sourced from copyright-free providers like Khan Academy, Pixabay, Pics4Learning, Free Music Archive, Wikimedia Commons, PBS LearningMedia, and MAA/NSO. The app, built with create-react-app, must support the following:
+
+Content Fetching and Storage:
+
+Use axios to fetch dynamic content (e.g., Khan Academy videos, Pixabay images) via APIs where available (e.g., Pixabay, Wikimedia Commons). For non-API sources (e.g., Pics4Learning, PBS LearningMedia), embed static URLs from the JSON datasource.
+Store content metadata and assets in localforage for offline access, ensuring compatibility with mobile browsers (iOS/Android).
+Integrate Firebase Firestore (firebase package) to manage content updates, syncing new resources (e.g., additional AMC 8 problems) with parental consent for COPPA compliance.
+
+
+Content Viewer Component:
+
+Create a ContentViewer component to display multimedia content by subject and topic (e.g., Math: Fractions, English: Vocabulary). Use <img> for images (e.g., Pixabay geometric shapes), <video> for videos (e.g., PBS LearningMedia weather clips), and react-audio-player for audio (e.g., Free Music Archive tracks).
+Implement interactive quizzes using react-hook-form for multiple-choice (e.g., Khan Academy multiplication quizzes) and short-answer inputs.
+Ensure accessibility with react-speech-kit for text-to-speech on text-based content and captions for videos.
+
+
+Student Workspace Integration:
+
+Enhance the student workspace (built with react-quill for text, react-katex for equations, react-sketch-canvas for drawing) to incorporate content for assignments and Olympiad practice.
+Display text-based Olympiad problems (e.g., MAA AMC 8) in react-quill, equations in react-katex, and allow sketching for creative tasks (e.g., Art for Kids Hub tutorials) using react-sketch-canvas.
+Provide real-time feedback (e.g., “Try explaining your steps!”) using simple rubrics, inspired by Personify AI (Prompt 8).
+
+
+Creative Activities Module:
+
+Integrate music content (e.g., Free Music Archive tracks, Berklee theory lessons) into a rhythm game using react-audio-player and interactive controls.
+Use react-sketch-canvas for drawing/sketching/painting tasks, embedding Pixabay images or Art for Kids Hub videos as prompts.
+Align activities with NAEYC’s play-based learning principles, encouraging creativity and motor skill development.
+
+
+Child Safety and Compliance:
+
+Ensure COPPA/GDPR-K compliance by filtering all content through a whitelist of educational topics (e.g., math, science, music) and avoiding PII collection.
+Store API keys in Replit’s Secrets and use localforage for anonymized data storage.
+Implement a parental dashboard (password-protected with bcryptjs) to review content usage and set time limits using react-timer-hook.
+
+
+Academic Integrity (Personify AI-Inspired):
+
+Monitor typing patterns in react-quill (e.g., keystroke timing) and time spent in the workspace using react-timer-hook to flag potential cheating (e.g., rapid copy-paste).
+Log interactions in localforage for parental review.
+Require citation of sources (e.g., “Image from Pixabay”) for creative tasks, appending credits in react-quill.
+
+
+Offline Functionality:
+
+Cache all content (images, videos, audio, text) in localforage for offline use, ensuring the app works without internet connectivity.
+Preload essential content (e.g., Khan Academy arithmetic videos, AMC 8 problems) during initial app load.
+
+
+Testing and Debugging:
+
+Write unit tests using jest and react-testing-library for the ContentViewer, student workspace, and creative activities components.
+Test mobile responsiveness in Replit’s web preview, ensuring compatibility with iOS/Android browsers.
+Verify accessibility (e.g., text-to-speech, font scaling) and offline functionality.
+Debug issues in Replit’s console, focusing on API fetching, content rendering, and safety compliance.
+
+
+Documentation:
+
+Update the README.md in Replit to include instructions for integrating the JSON datasource, fetching content, and managing Firebase.
+Document each component (ContentViewer, workspace, creative module) with code comments and usage examples.
+Include a parental guide (Markdown) explaining how multimedia content is accessed, safety measures, and academic integrity features.
+
+
+Implementation Details:
+
+Import the JSON datasource into the React app as a static file or fetch it from Firebase.
+Structure the app with routes (react-router-dom) for subjects (e.g., /math, /english) and topics (e.g., /math/fractions).
+Use axios to fetch dynamic content and handle errors (e.g., fallback to cached content in localforage).
+Display attribution for CC-BY content (e.g., Free Music Archive, Art for Kids Hub) in the app’s footer using a Credits component.
+
+
+
+Sample JSON Datasource:
+
+Use the provided JSON (from the previous artifact) with subjects (Math, English, Science, Social Studies, Creative Activities, Olympiad Preparation) and multimedia links (e.g., Khan Academy videos, Pixabay images). Example structure:

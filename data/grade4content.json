@@ -1,0 +1,222 @@
+{
+  "grade": "4",
+  "subjects": [
+    {
+      "subject": "Math",
+      "topics": [
+        {
+          "topic": "Measurement and Data",
+          "content": [
+            {
+              "description": "Video on measuring length and area, including perimeter calculations.",
+              "type": "video",
+              "source": "Khan Academy",
+              "link": "https://www.khanacademy.org/math/cc-fourth-grade-math/imp-measurement-and-data/v/perimeter-and-area",
+              "license": "Free for non-commercial use"
+            },
+            {
+              "description": "Image of a ruler for measurement lessons.",
+              "type": "image",
+              "source": "Wikimedia Commons",
+              "link": "https://commons.wikimedia.org/wiki/File:Ruler_30cm.svg",
+              "license": "CC0"
+            }
+          ]
+        },
+        {
+          "topic": "Algebraic Thinking",
+          "content": [
+            {
+              "description": "Interactive quiz on number patterns and factors.",
+              "type": "interactive",
+              "source": "CK-12",
+              "link": "https://www.ck12.org/c/arithmetic/patterns",
+              "license": "Free for non-commercial use"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "subject": "English",
+      "topics": [
+        {
+          "topic": "Informational Text",
+          "content": [
+            {
+              "description": "Interactive lesson on analyzing informational texts.",
+              "type": "interactive",
+              "source": "CK-12",
+              "link": "https://www.ck12.org/c/reading-comprehension/informational-text",
+              "license": "Free for non-commercial use"
+            }
+          ]
+        },
+        {
+          "topic": "Writing (Opinion/Informative)",
+          "content": [
+            {
+              "description": "Video on writing opinion essays for Grade 4.",
+              "type": "video",
+              "source": "PBS LearningMedia",
+              "link": "https://www.pbslearningmedia.org/resource/creating-opinion-essays/creating-opinion-essays/",
+              "license": "Free for educational use; registration required"
+            }
+          ]
+        },
+        {
+          "topic": "Grammar and Language",
+          "content": [
+            {
+              "description": "Interactive grammar quiz on sentence structure and punctuation.",
+              "type": "interactive",
+              "source": "Khan Academy",
+              "link": "https://www.khanacademy.org/ela/cc-4th-language",
+              "license": "Free for non-commercial use"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "subject": "Science",
+      "topics": [
+        {
+          "topic": "Physical Science (Energy, Waves)",
+          "content": [
+            {
+              "description": "Video on energy forms (e.g., light, sound) for Grade 4.",
+              "type": "video",
+              "source": "PBS LearningMedia",
+              "link": "https://www.pbslearningmedia.org/resource/nvps-sci-energy/energy/",
+              "license": "Free for educational use; registration required"
+            },
+            {
+              "description": "Interactive simulation on waves.",
+              "type": "interactive",
+              "source": "CK-12",
+              "link": "https://www.ck12.org/c/physical-science/waves",
+              "license": "Free for non-commercial use"
+            }
+          ]
+        },
+        {
+          "topic": "Engineering Design",
+          "content": [
+            {
+              "description": "Video on simple engineering challenges (e.g., building a bridge).",
+              "type": "video",
+              "source": "PBS LearningMedia",
+              "link": "https://www.pbslearningmedia.org/resource/engineering-design/engineering-design/",
+              "license": "Free for educational use; registration required"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "subject": "Social Studies",
+      "topics": [
+        {
+          "topic": "Civics",
+          "content": [
+            {
+              "description": "Video on government basics for Grade 4.",
+              "type": "video",
+              "source": "PBS LearningMedia",
+              "link": "https://www.pbslearningmedia.org/resource/civics-government/civics-government/",
+              "license": "Free for educational use; registration required"
+            }
+          ]
+        },
+        {
+          "topic": "Economics",
+          "content": [
+            {
+              "description": "Interactive lesson on basic economic concepts (e.g., trade).",
+              "type": "interactive",
+              "source": "CK-12",
+              "link": "https://www.ck12.org/c/social-studies/economics",
+              "license": "Free for non-commercial use"
+            }
+          ]
+        },
+        {
+          "topic": "History (Native American Cultures)",
+          "content": [
+            {
+              "description": "Image of Native American artifacts for history lessons.",
+              "type": "image",
+              "source": "Wikimedia Commons",
+              "link": "https://commons.wikimedia.org/wiki/File:Native_American_artifacts.jpg",
+              "license": "CC0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "subject": "Creative Activities",
+      "topics": [
+        {
+          "topic": "Music",
+          "content": [
+            {
+              "description": "Lesson on music theory (e.g., scales, melody) for Grade 4.",
+              "type": "text",
+              "source": "Berklee College of Music",
+              "link": "https://online.berklee.edu/free-resources",
+              "license": "Free for educational use; check terms"
+            }
+          ]
+        },
+        {
+          "topic": "Drawing/Sketching/Painting",
+          "content": [
+            {
+              "description": "Video tutorial on drawing a tree, suitable for Grade 4.",
+              "type": "video",
+              "source": "YouTube (Art for Kids Hub)",
+              "link": "https://www.youtube.com/watch?v=5z6qY4Kz6j0",
+              "license": "CC-BY; attribution required"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "subject": "Olympiad Preparation",
+      "topics": [
+        {
+          "topic": "Math Olympiad (AMC 8)",
+          "content": [
+            {
+              "description": "Additional AMC 8 problem set for Grade 4.",
+              "type": "text",
+              "source": "Mathematical Association of America (MAA)",
+              "link": "https://www.maa.org/math-competitions/amc-8",
+              "license": "Free for educational use; check terms"
+            }
+          ]
+        },
+        {
+          "topic": "Science Olympiad",
+          "content": [
+            {
+              "description": "Interactive science inquiry activity for Olympiad prep.",
+              "type": "interactive",
+              "source": "National Science Olympiad (NSO)",
+              "link": "https://www.soinc.org/sample-questions",
+              "license": "Free for educational use; check terms"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "integration": "Fetch content via APIs (Pixabay, Wikimedia, Khan Academy) using `axios` in the React app. Store in `localforage` for offline access. Embed videos/images in content viewer using `<video>`, `<img>`, or `react-audio-player`. Use `react-quill` for text-based Olympiad problems and `react-sketch-canvas` for drawing activities.",
+    "safety": "Vet all content for age-appropriateness (no violence, complex themes). Use SafeSearch for Pixabay. Store API keys in Replit’s `Secrets`. Ensure COPPA/GDPR-K compliance by avoiding PII collection.",
+    "attribution": "For CC-BY content (e.g., Free Music Archive, YouTube CC), display attribution in the app’s footer (e.g., ‘Music by [Artist], CC-BY’). CC0 and public domain content (Pixabay, Wikimedia) require no attribution but linking back is encouraged."
+  }
+}

@@ -2,6 +2,8 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertUserSchema, insertProgressSchema, insertAchievementSchema } from "@shared/schema";
+import fs from "fs";
+import path from "path";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // User routes
@@ -163,6 +165,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(activity);
     } catch (error) {
       res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  // Grade 4 Content API endpoint
+  app.get("/api/grade4-content", async (req, res) => {
+    try {
+      const dataPath = path.resolve(process.cwd(), 'data', 'grade4content.json');
+      const fileContent = await fs.promises.readFile(dataPath, 'utf-8');
+      const grade4Data = JSON.parse(fileContent);
+      
+      res.json(grade4Data);
+    } catch (error) {
+      console.error('Failed to load Grade 4 content:', error);
+      res.status(500).json({ 
+        message: "Failed to load Grade 4 multimedia content",
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
     }
   });
 

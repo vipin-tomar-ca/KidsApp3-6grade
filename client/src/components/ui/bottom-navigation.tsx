@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Home, BookOpen, User, Settings } from "lucide-react";
+import { Home, BookOpen, User, Settings, Library } from "lucide-react";
 import { Link, useLocation } from "wouter";
 
 interface NavItem {
@@ -9,10 +9,10 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { path: "/", label: "Home", icon: Home },
-  { path: "/library", label: "Library", icon: BookOpen },
+  { path: "/subjects", label: "Home", icon: Home },
+  { path: "/content-browser", label: "Content", icon: Library },
+  { path: "/workspace", label: "Workspace", icon: BookOpen },
   { path: "/profile", label: "Profile", icon: User },
-  { path: "/settings", label: "Settings", icon: Settings },
 ];
 
 export function BottomNavigation() {
