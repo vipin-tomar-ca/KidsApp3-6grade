@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
 import { NavigationHeader } from "@/components/ui/navigation-header";
 import { Palette, ArrowLeft, Play, Trophy, Clock } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import DigitalArtCanvas from '@/components/DigitalArtCanvas';
 
@@ -12,8 +13,7 @@ interface ArtPageState {
 }
 
 const ArtPage: React.FC = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [location, navigate] = useLocation();
   const [currentView, setCurrentView] = useState<'menu' | 'canvas'>('menu');
   const [selectedLesson, setSelectedLesson] = useState<string | undefined>(undefined);
   

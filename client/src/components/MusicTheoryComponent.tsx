@@ -585,31 +585,49 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
     }
   };
 
-  const startMetronome = () => {
-    if (metronomeActive) {
-      Tone.Transport.stop();
-      setMetronomeActive(false);
-      return;
+  const startMetronome = async () => {
+    try {
+      // Start Tone.js context if not already started
+      if (Tone.context.state !== 'running') {
+        await Tone.start();
+      }
+
+      if (metronomeActive) {
+        Tone.Transport.stop();
+        setMetronomeActive(false);
+        return;
+      }
+
+      Tone.Transport.bpm.value = bpm;
+      
+      // Create a simple metronome click
+      const metronome = new Tone.Loop((time) => {
+        // Create a simple click sound
+        const synth = new Tone.Synth().toDestination();
+        synth.triggerAttackRelease('C6', '32n', time);
+      }, '4n');
+
+      metronome.start(0);
+      Tone.Transport.start();
+      setMetronomeActive(true);
+    } catch (error) {
+      console.error('Error starting metronome:', error);
     }
-
-    Tone.Transport.bpm.value = bpm;
-    
-    // Create a simple metronome click
-    const metronome = new Tone.Loop((time) => {
-      // Create a simple click sound
-      const synth = new Tone.Synth().toDestination();
-      synth.triggerAttackRelease('C6', '32n', time);
-    }, '4n');
-
-    metronome.start(0);
-    Tone.Transport.start();
-    setMetronomeActive(true);
   };
 
-  const playNote = (midiNumber: number) => {
-    const frequency = Tone.Frequency(midiNumber, "midi").toFrequency();
-    const synth = new Tone.Synth().toDestination();
-    synth.triggerAttackRelease(frequency, '8n');
+  const playNote = async (midiNumber: number) => {
+    try {
+      // Start Tone.js context if not already started
+      if (Tone.context.state !== 'running') {
+        await Tone.start();
+      }
+      
+      const frequency = Tone.Frequency(midiNumber, "midi").toFrequency();
+      const synth = new Tone.Synth().toDestination();
+      synth.triggerAttackRelease(frequency, '8n');
+    } catch (error) {
+      console.error('Error playing note:', error);
+    }
   };
 
   const startRhythmGame = (exercise: MusicExercise) => {

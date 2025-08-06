@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Music, Play, Pause, Volume2, Award, ArrowLeft, CheckCircle, Star, Lock } from 'lucide-react';
 import { NavigationHeader } from "@/components/ui/navigation-header";
 import { Badge, ProgressBar } from 'react-bootstrap';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'wouter';
 import MusicTheoryComponent from '@/components/MusicTheoryComponent';
 
 interface MusicPageState {
@@ -12,7 +12,7 @@ interface MusicPageState {
 }
 
 const MusicPage: React.FC = () => {
-  const navigate = useNavigate();
+  const [location, navigate] = useLocation();
   const [currentView, setCurrentView] = useState<'menu' | 'theory' | 'progression'>('menu');
   const [playing, setPlaying] = useState<string | null>(null);
   const [userLevel, setUserLevel] = useState<'beginner' | 'intermediate' | 'advanced' | 'expert'>('beginner');
