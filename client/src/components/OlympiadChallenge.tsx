@@ -403,22 +403,24 @@ const OlympiadChallenge: React.FC<OlympiadChallengeProps> = ({
                       <Controller
                         name={`answers.${currentProblem.id}`}
                         control={control}
+                        rules={{ required: "Please select an answer" }}
                         render={({ field }) => (
                           <div className="choices-grid">
                             {currentProblem.choices?.map((choice, index) => (
-                              <Form.Check
-                                key={index}
-                                type="radio"
-                                id={`choice-${index}`}
-                                label={choice}
-                                value={choice}
-                                checked={field.value === choice}
-                                onChange={(e) => {
-                                  field.onChange(e.target.value);
-                                  handleAnswerSubmit(currentProblem.id, e.target.value);
-                                }}
-                                className="mb-2 p-3 border rounded-3 choice-option"
-                              />
+                              <div key={index} className="mb-3 p-3 bg-light rounded-3 kid-button">
+                                <Form.Check
+                                  type="radio"
+                                  id={`choice-${index}`}
+                                  label={choice}
+                                  value={choice}
+                                  checked={field.value === choice}
+                                  onChange={(e) => {
+                                    field.onChange(e.target.value);
+                                    // Don't auto-submit, let user click submit button
+                                  }}
+                                  className="form-check-lg"
+                                />
+                              </div>
                             ))}
                           </div>
                         )}

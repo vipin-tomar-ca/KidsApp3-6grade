@@ -74,7 +74,24 @@ const InteractiveQuiz: React.FC<InteractiveQuizProps> = ({
     if (!currentQuiz) return;
 
     const userAnswer = data[`question_${currentQuiz.id}`];
-    const correct = userAnswer == currentQuiz.correctAnswer;
+    console.log('User answer:', userAnswer, 'Correct answer:', currentQuiz.correctAnswer);
+    
+    let correct = false;
+    
+    // Handle different question types
+    if (currentQuiz.type === 'multiple-choice') {
+      // Convert user answer index to actual answer
+      const answerIndex = parseInt(userAnswer as string);
+      const selectedAnswer = currentQuiz.options?.[answerIndex];
+      correct = selectedAnswer === currentQuiz.correctAnswer;
+    } else if (currentQuiz.type === 'true-false') {
+      correct = userAnswer === currentQuiz.correctAnswer;
+    } else if (currentQuiz.type === 'fill-blank') {
+      // Case-insensitive comparison for text answers
+      const userText = (userAnswer as string).toLowerCase().trim();
+      const correctText = (currentQuiz.correctAnswer as string).toLowerCase().trim();
+      correct = userText === correctText;
+    }
 
     setIsCorrect(correct);
     setShowFeedback(true);
@@ -83,8 +100,10 @@ const InteractiveQuiz: React.FC<InteractiveQuizProps> = ({
     if (correct) {
       setScore(prev => prev + currentQuiz.points);
       setAnswers(prev => ({ ...prev, [currentQuiz.id]: userAnswer }));
+      console.log('Correct answer! Score increased.');
     } else {
       setHearts(prev => Math.max(0, prev - 1));
+      console.log('Incorrect answer. Heart lost.');
     }
 
     // Auto-advance after showing feedback
@@ -279,38 +298,50 @@ const InteractiveQuiz: React.FC<InteractiveQuizProps> = ({
             <Form onSubmit={handleSubmit(submitAnswer)}>
               {currentQuiz.type === 'multiple-choice' && currentQuiz.options && (
                 <div className="mb-4">
-                  {currentQuiz.options.map((option, index) => (
-                    <Form.Check
-                      key={index}
-                      type="radio"
-                      id={`option-${index}`}
-                      label={option}
-                      value={index}
-                      className="mb-3 p-3 bg-light rounded-3 kid-button"
-                      {...register(`question_${currentQuiz.id}`, { required: true })}
-                    />
-                  ))}
+                  {currentQuiz.options.map((option, index) => {
+                    const fieldName = `question_${currentQuiz.id}`;
+                    const watchedValue = watch(fieldName);
+                    return (
+                      <div key={index} className="mb-3 p-3 bg-light rounded-3 kid-button">
+                        <Form.Check
+                          type="radio"
+                          id={`option-${index}`}
+                          label={option}
+                          value={index.toString()}
+                          checked={watchedValue === index.toString()}
+                          {...register(fieldName, { required: true })}
+                          className="form-check-lg"
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
               {currentQuiz.type === 'true-false' && (
                 <div className="mb-4">
-                  <Form.Check
-                    type="radio"
-                    id="true-option"
-                    label="True ✓"
-                    value="true"
-                    className="mb-3 p-3 bg-light rounded-3 kid-button"
-                    {...register(`question_${currentQuiz.id}`, { required: true })}
-                  />
-                  <Form.Check
-                    type="radio"
-                    id="false-option"
-                    label="False ✗"
-                    value="false"
-                    className="mb-3 p-3 bg-light rounded-3 kid-button"
-                    {...register(`question_${currentQuiz.id}`, { required: true })}
-                  />
+                  <div className="mb-3 p-3 bg-light rounded-3 kid-button">
+                    <Form.Check
+                      type="radio"
+                      id="true-option"
+                      label="True ✓"
+                      value="true"
+                      checked={watch(`question_${currentQuiz.id}`) === "true"}
+                      {...register(`question_${currentQuiz.id}`, { required: true })}
+                      className="form-check-lg"
+                    />
+                  </div>
+                  <div className="mb-3 p-3 bg-light rounded-3 kid-button">
+                    <Form.Check
+                      type="radio"
+                      id="false-option"
+                      label="False ✗"
+                      value="false"
+                      checked={watch(`question_${currentQuiz.id}`) === "false"}
+                      {...register(`question_${currentQuiz.id}`, { required: true })}
+                      className="form-check-lg"
+                    />
+                  </div>
                 </div>
               )}
 
@@ -331,7 +362,7 @@ const InteractiveQuiz: React.FC<InteractiveQuizProps> = ({
                   variant="primary"
                   size="lg"
                   className="w-100 rounded-3 kid-button"
-                  disabled={Object.keys(errors).length > 0}
+                  disabled={!watch(`question_${currentQuiz.id}`)}
                 >
                   Submit Answer
                 </BootstrapButton>
