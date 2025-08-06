@@ -118,14 +118,8 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
 
   const setupAudioContext = async () => {
     try {
-      await Tone.start();
-      
-      // Create metronome
-      metronomeRef.current = new Tone.Player({
-        url: "/audio/click.wav",
-        loop: false
-      }).toDestination();
-      
+      // Note: Tone.js will be started on first user interaction
+      console.log('Audio context setup ready');
     } catch (error) {
       console.error('Audio setup error:', error);
     }
@@ -620,11 +614,32 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
       // Start Tone.js context if not already started
       if (Tone.context.state !== 'running') {
         await Tone.start();
+        console.log('Tone.js started!');
       }
       
+      // Create a new synth for each note to ensure it plays
+      const synth = new Tone.Synth({
+        oscillator: {
+          type: 'sine'
+        },
+        envelope: {
+          attack: 0.1,
+          decay: 0.2,
+          sustain: 0.3,
+          release: 0.5
+        }
+      }).toDestination();
+      
       const frequency = Tone.Frequency(midiNumber, "midi").toFrequency();
-      const synth = new Tone.Synth().toDestination();
-      synth.triggerAttackRelease(frequency, '8n');
+      synth.triggerAttackRelease(frequency, '0.5');
+      
+      console.log(`Playing note: MIDI ${midiNumber}, Frequency: ${frequency}Hz`);
+      
+      // Dispose of synth after playing to prevent memory leaks
+      setTimeout(() => {
+        synth.dispose();
+      }, 1000);
+      
     } catch (error) {
       console.error('Error playing note:', error);
     }
@@ -735,6 +750,22 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
       </CardHeader>
       <CardContent>
         <div className="piano-container bg-light rounded-3 p-4">
+          <div className="mb-3">
+            <Button 
+              onClick={async () => {
+                try {
+                  await Tone.start();
+                  console.log('Audio context manually started');
+                  playNote(60); // Play middle C as test
+                } catch (error) {
+                  console.error('Manual audio start failed:', error);
+                }
+              }}
+              className="bg-green-600 hover:bg-green-700 text-white"
+            >
+              🔊 Enable Sound (Click First!)
+            </Button>
+          </div>
           <Piano
             noteRange={{ first: firstNote, last: lastNote }}
             playNote={playNote}
