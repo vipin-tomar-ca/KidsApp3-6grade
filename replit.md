@@ -36,6 +36,32 @@ Preferred communication style: Simple, everyday language.
 - **Achievement System**: Badge, medal, and trophy-based rewards for user engagement
 - **Points & Levels**: Gamification through point accumulation and level progression
 
+## Creative Activity Modules
+
+### Music Education Module
+- **Framework**: React components with TypeScript integration
+- **Audio Library**: Tone.js for Web Audio API synthesis and audio playback
+- **Piano Interface**: react-piano for interactive keyboard learning
+- **Audio Players**: react-audio-player for lesson audio content
+- **Music Notation**: VexFlow for displaying musical notation (future integration)
+- **Content Source**: Berklee College of Music inspired curriculum
+- **Features**: Interactive rhythm games, note identification, scale practice, metronome
+- **Storage**: localforage for user progress and musical creations
+
+### Digital Art Module  
+- **Canvas Library**: react-sketch-canvas for digital drawing and painting
+- **Drawing Tools**: Comprehensive brush settings, color palettes, eraser functionality
+- **Tutorial System**: Step-by-step guided lessons adapted from Art for Kids Hub
+- **Content Types**: Character drawing, landscapes, portraits, still life
+- **Features**: Real-time drawing feedback, project saving, tutorial progression tracking
+- **Storage**: localforage for artwork projects and learning progress
+
+### Educational Standards Alignment
+- **Music**: National Core Arts Standards (MU:Re7.1.Ka, MU:Pr4.2.Ka, etc.)
+- **Art**: National Visual Arts Standards (VA:Cr1.1.Ka, VA:Cr2.1.2a, etc.)  
+- **Pedagogy**: NAEYC play-based learning principles integration
+- **Age Appropriateness**: Content scaled for grades 3-6 development levels
+
 ## External Dependencies
 
 - **Database**: Neon serverless PostgreSQL (@neondatabase/serverless)
@@ -45,3 +71,5 @@ Preferred communication style: Simple, everyday language.
 - **State Management**: TanStack Query for server state and caching
 - **Build Tools**: Vite for fast development and optimized production builds
 - **Development**: Replit-specific plugins for development environment integration
+- **Creative Tools**: Tone.js, react-piano, react-sketch-canvas, react-audio-player, VexFlow
+- **Storage**: localforage for offline content and user creations
