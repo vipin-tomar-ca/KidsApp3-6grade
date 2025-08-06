@@ -12,51 +12,156 @@ export default function Reading() {
     navigate('/subjects');
   };
   
-  const readingActivities = [
+  // Comprehensive Reading & Language Arts Curriculum based on ICSE, CBSE & IB standards
+  const readingSkillAreas = [
     {
-      id: 1,
-      title: "The Magic Forest",
-      description: "A story about friendship and adventure",
-      type: "story",
-      difficulty: 1,
-      points: 15,
-      duration: 5,
-      completed: true,
-      cover: "🌳",
+      title: "Reading Comprehension",
+      icon: "📖",
+      color: "from-blue-400 to-blue-600",
+      lessons: [
+        {
+          id: 1,
+          title: "Main Idea Detective",
+          description: "Find the main idea and supporting details in stories",
+          grade: "3-4",
+          duration: "20 min",
+          difficulty: 1,
+          points: 15,
+          completed: true,
+          curriculum: "ICSE/CBSE",
+          skills: ["Main idea identification", "Supporting details", "Text analysis"]
+        },
+        {
+          id: 2,
+          title: "Inference Explorer",
+          description: "Read between the lines and make logical inferences",
+          grade: "4-5",
+          duration: "25 min",
+          difficulty: 2,
+          points: 20,
+          completed: false,
+          curriculum: "IB PYP/CBSE",
+          skills: ["Making inferences", "Context clues", "Critical thinking"]
+        },
+        {
+          id: 3,
+          title: "Compare & Contrast Stories",
+          description: "Analyze similarities and differences across multiple texts",
+          grade: "5-6",
+          duration: "30 min",
+          difficulty: 3,
+          points: 25,
+          completed: false,
+          curriculum: "ICSE/IB PYP",
+          skills: ["Text comparison", "Literary analysis", "Critical evaluation"]
+        }
+      ]
     },
     {
-      id: 2,
-      title: "Space Explorers",
-      description: "Journey to the stars with brave astronauts",
-      type: "story",
-      difficulty: 2,
-      points: 20,
-      duration: 8,
-      completed: true,
-      cover: "🚀",
+      title: "Vocabulary Building",
+      icon: "📝",
+      color: "from-green-400 to-green-600",
+      lessons: [
+        {
+          id: 4,
+          title: "Word Family Adventures",
+          description: "Explore word families and root words",
+          grade: "3-4",
+          duration: "15 min",
+          difficulty: 1,
+          points: 10,
+          completed: true,
+          curriculum: "CBSE/ICSE",
+          skills: ["Word families", "Root words", "Word patterns"]
+        },
+        {
+          id: 5,
+          title: "Context Clue Champion",
+          description: "Use context to determine word meanings",
+          grade: "4-5",
+          duration: "20 min",
+          difficulty: 2,
+          points: 15,
+          completed: false,
+          curriculum: "IB PYP/CBSE",
+          skills: ["Context clues", "Vocabulary expansion", "Reading strategies"]
+        },
+        {
+          id: 6,
+          title: "Synonyms & Antonyms Quest",
+          description: "Master word relationships and meaning connections",
+          grade: "5-6",
+          duration: "25 min",
+          difficulty: 2,
+          points: 20,
+          completed: false,
+          curriculum: "ICSE/CBSE/IB",
+          skills: ["Synonyms", "Antonyms", "Word relationships"]
+        }
+      ]
     },
     {
-      id: 3,
-      title: "Ocean Adventures", 
-      description: "Dive deep into the mysterious ocean",
-      type: "story",
-      difficulty: 2,
-      points: 20,
-      duration: 7,
-      completed: false,
-      cover: "🌊",
+      title: "Literary Analysis",
+      icon: "🎭",
+      color: "from-purple-400 to-purple-600",
+      lessons: [
+        {
+          id: 7,
+          title: "Character Study",
+          description: "Analyze character traits, motivations, and development",
+          grade: "3-4",
+          duration: "25 min",
+          difficulty: 2,
+          points: 20,
+          completed: false,
+          curriculum: "IB PYP/ICSE",
+          skills: ["Character analysis", "Trait identification", "Story elements"]
+        },
+        {
+          id: 8,
+          title: "Theme & Message Finder",
+          description: "Identify themes and central messages in literature",
+          grade: "5-6",
+          duration: "30 min",
+          difficulty: 3,
+          points: 25,
+          completed: false,
+          curriculum: "ICSE/IB PYP",
+          skills: ["Theme identification", "Central message", "Literary interpretation"]
+        }
+      ]
     },
     {
-      id: 4,
-      title: "Word Builder Game",
-      description: "Build new words and learn their meanings",
-      type: "game",
-      difficulty: 1,
-      points: 10,
-      duration: 10,
-      completed: false,
-      cover: "📝",
-    },
+      title: "Reading Fluency",
+      icon: "🗣️",
+      color: "from-orange-400 to-orange-600",
+      lessons: [
+        {
+          id: 9,
+          title: "Fluency Builder",
+          description: "Practice reading with proper pace, expression, and accuracy",
+          grade: "3-4",
+          duration: "15 min",
+          difficulty: 1,
+          points: 15,
+          completed: false,
+          curriculum: "CBSE/ICSE",
+          skills: ["Reading fluency", "Expression", "Pace control"]
+        },
+        {
+          id: 10,
+          title: "Poetry Performance",
+          description: "Read and perform poetry with rhythm and expression",
+          grade: "4-6",
+          duration: "20 min",
+          difficulty: 2,
+          points: 20,
+          completed: false,
+          curriculum: "IB PYP/CBSE",
+          skills: ["Poetry reading", "Rhythm", "Performance skills"]
+        }
+      ]
+    }
   ];
 
   return (
@@ -128,60 +233,110 @@ export default function Reading() {
           </CardContent>
         </Card>
 
-        {/* Reading Activities */}
+        {/* Reading Skill Areas - Comprehensive Curriculum */}
         <section className="mb-8">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">Choose Your Adventure</h3>
-          <div className="space-y-4">
-            {readingActivities.map((activity) => (
-              <Card 
-                key={activity.id} 
-                className={cn(
-                  "rounded-3xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.02]",
-                  activity.completed ? "bg-green-50 border-green-200" : "bg-white"
-                )}
-              >
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <div className="text-4xl">{activity.cover}</div>
-                      <div className="flex-1">
-                        <h4 className="font-bold text-lg text-gray-800 mb-1">
-                          {activity.title}
-                        </h4>
-                        <p className="text-gray-600 text-sm mb-2">
-                          {activity.description}
+          <h3 className="text-xl font-bold text-gray-800 mb-4">Reading & Language Arts Curriculum (Grades 3-6)</h3>
+          <div className="space-y-6">
+            {readingSkillAreas.map((area, areaIndex) => (
+              <div key={areaIndex} className="space-y-4">
+                {/* Skill Area Header */}
+                <Card className={cn("rounded-3xl shadow-lg bg-gradient-to-r", area.color)}>
+                  <CardContent className="p-6">
+                    <div className="flex items-center space-x-4 text-white">
+                      <div className="text-4xl">{area.icon}</div>
+                      <div>
+                        <h2 className="text-xl font-bold mb-1">{area.title}</h2>
+                        <p className="text-white/90 text-sm">
+                          {area.lessons.length} lessons • ICSE/CBSE/IB curriculum
                         </p>
-                        <div className="flex items-center space-x-3 text-xs">
-                          <span className={cn(
-                            "px-2 py-1 rounded-full font-semibold",
-                            activity.type === "story" ? "bg-blue-100 text-blue-700" : "bg-purple-100 text-purple-700"
-                          )}>
-                            {activity.type === "story" ? "📖 Story" : "🎮 Game"}
-                          </span>
-                          <span className="flex items-center text-gray-500">
-                            <Clock size={12} className="mr-1" />
-                            {activity.duration} min
-                          </span>
-                          <span className="text-kid-green font-semibold">
-                            +{activity.points} points
-                          </span>
-                        </div>
                       </div>
                     </div>
-                    <div className="flex flex-col items-center space-y-2">
-                      {activity.completed ? (
-                        <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
-                          <Trophy className="text-white" size={24} />
-                        </div>
-                      ) : (
-                        <button className="w-12 h-12 bg-kid-green rounded-full flex items-center justify-center hover:bg-green-600 transition-colors kid-button">
-                          <Play className="text-white" size={24} />
-                        </button>
+                  </CardContent>
+                </Card>
+
+                {/* Lessons in this skill area */}
+                <div className="space-y-3 ml-4">
+                  {area.lessons.map((lesson) => (
+                    <Card 
+                      key={lesson.id} 
+                      className={cn(
+                        "rounded-2xl shadow-md transition-all duration-300 hover:scale-102 cursor-pointer",
+                        lesson.completed 
+                          ? "bg-gradient-to-r from-green-50 to-green-100 border-green-200" 
+                          : "bg-white hover:shadow-lg"
                       )}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                    >
+                      <CardContent className="p-5">
+                        <div className="flex items-center justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center space-x-3 mb-2">
+                              <h3 className="text-lg font-bold text-gray-800">
+                                {lesson.title}
+                              </h3>
+                              <span className={cn(
+                                "px-2 py-1 rounded-full text-xs font-medium",
+                                lesson.difficulty === 1 ? "bg-green-100 text-green-700" :
+                                lesson.difficulty === 2 ? "bg-yellow-100 text-yellow-700" :
+                                "bg-red-100 text-red-700"
+                              )}>
+                                Grade {lesson.grade}
+                              </span>
+                            </div>
+                            
+                            <p className="text-gray-600 text-sm mb-3">
+                              {lesson.description}
+                            </p>
+                            
+                            <div className="flex items-center space-x-4 mb-2">
+                              <div className="flex items-center space-x-1">
+                                <Trophy className="h-4 w-4 text-yellow-500" />
+                                <span className="text-sm font-medium text-gray-700">
+                                  {lesson.points} pts
+                                </span>
+                              </div>
+                              <div className="flex items-center space-x-1">
+                                <Clock className="h-4 w-4 text-gray-400" />
+                                <span className="text-sm text-gray-500">
+                                  {lesson.duration}
+                                </span>
+                              </div>
+                              <div className="flex items-center space-x-1">
+                                <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                                  {lesson.curriculum}
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* Skills Tags */}
+                            <div className="flex flex-wrap gap-1">
+                              {lesson.skills.map((skill, skillIndex) => (
+                                <span 
+                                  key={skillIndex}
+                                  className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full"
+                                >
+                                  {skill}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center space-x-2 ml-4">
+                            {lesson.completed ? (
+                              <div className="bg-green-500 text-white rounded-full p-2">
+                                <Trophy className="h-5 w-5" />
+                              </div>
+                            ) : (
+                              <div className="bg-green-500 text-white rounded-full p-2 hover:bg-green-600 transition-colors">
+                                <Play className="h-5 w-5" />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </section>

@@ -12,55 +12,166 @@ export default function Science() {
     navigate('/subjects');
   };
   
-  const scienceActivities = [
+  // Comprehensive Science Curriculum based on ICSE, CBSE EVS & IB PYP standards
+  const scienceSkillAreas = [
     {
-      id: 1,
-      title: "Volcano Eruption",
-      description: "Create your own volcanic eruption!",
-      type: "experiment",
-      difficulty: 2,
-      points: 25,
-      duration: 15,
-      completed: true,
-      icon: "🌋",
-      materials: ["Baking soda", "Vinegar", "Food coloring"],
+      title: "Living & Non-Living World",
+      icon: "🌱",
+      color: "from-green-400 to-green-600",
+      lessons: [
+        {
+          id: 1,
+          title: "Living vs Non-Living",
+          description: "Explore characteristics that distinguish living from non-living things",
+          grade: "3-4",
+          duration: "20 min",
+          difficulty: 1,
+          points: 15,
+          completed: true,
+          curriculum: "CBSE EVS/ICSE",
+          skills: ["Classification", "Observation", "Scientific thinking"],
+          type: "inquiry"
+        },
+        {
+          id: 2,
+          title: "Plant Life Cycles",
+          description: "Discover how plants grow, reproduce, and adapt",
+          grade: "4-5",
+          duration: "30 min",
+          difficulty: 2,
+          points: 20,
+          completed: false,
+          curriculum: "IB PYP/CBSE EVS",
+          skills: ["Life cycles", "Plant biology", "Environmental science"],
+          type: "investigation"
+        },
+        {
+          id: 3,
+          title: "Animal Adaptations",
+          description: "Learn how animals adapt to their environments",
+          grade: "5-6",
+          duration: "25 min",
+          difficulty: 2,
+          points: 20,
+          completed: false,
+          curriculum: "ICSE/IB PYP",
+          skills: ["Adaptations", "Habitats", "Evolution basics"],
+          type: "exploration"
+        }
+      ]
     },
     {
-      id: 2,
-      title: "Rainbow Colors",
-      description: "Learn about light and colors with prisms",
-      type: "experiment",
-      difficulty: 1,
-      points: 20,
-      duration: 10,
-      completed: true,
-      icon: "🌈",
-      materials: ["Prism", "Flashlight", "White wall"],
+      title: "Matter & Materials",
+      icon: "⚗️",
+      color: "from-blue-400 to-blue-600",
+      lessons: [
+        {
+          id: 4,
+          title: "States of Matter",
+          description: "Explore solids, liquids, and gases through hands-on experiments",
+          grade: "3-4",
+          duration: "25 min",
+          difficulty: 1,
+          points: 15,
+          completed: true,
+          curriculum: "CBSE EVS/ICSE",
+          skills: ["Matter states", "Physical changes", "Observation"],
+          type: "experiment"
+        },
+        {
+          id: 5,
+          title: "Properties of Materials",
+          description: "Investigate material properties like hardness, flexibility, and transparency",
+          grade: "4-5",
+          duration: "30 min",
+          difficulty: 2,
+          points: 20,
+          completed: false,
+          curriculum: "IB PYP/ICSE",
+          skills: ["Material properties", "Classification", "Scientific method"],
+          type: "investigation"
+        },
+        {
+          id: 6,
+          title: "Chemical vs Physical Changes",
+          description: "Distinguish between chemical and physical changes in matter",
+          grade: "5-6",
+          duration: "35 min",
+          difficulty: 3,
+          points: 25,
+          completed: false,
+          curriculum: "ICSE/IB PYP",
+          skills: ["Chemical changes", "Physical changes", "Scientific analysis"],
+          type: "experiment"
+        }
+      ]
     },
     {
-      id: 3,
-      title: "Magnetic Magic",
-      description: "Explore the invisible force of magnetism",
-      type: "experiment",
-      difficulty: 2,
-      points: 20,
-      duration: 12,
-      completed: false,
-      icon: "🧲",
-      materials: ["Magnets", "Metal objects", "Paper clips"],
+      title: "Forces & Energy",
+      icon: "⚡",
+      color: "from-yellow-400 to-yellow-600",
+      lessons: [
+        {
+          id: 7,
+          title: "Push, Pull & Motion",
+          description: "Understand forces and how they cause objects to move",
+          grade: "3-4",
+          duration: "20 min",
+          difficulty: 1,
+          points: 15,
+          completed: false,
+          curriculum: "CBSE EVS/ICSE",
+          skills: ["Forces", "Motion", "Cause and effect"],
+          type: "hands-on"
+        },
+        {
+          id: 8,
+          title: "Simple Machines",
+          description: "Explore levers, pulleys, and inclined planes",
+          grade: "5-6",
+          duration: "30 min",
+          difficulty: 2,
+          points: 20,
+          completed: false,
+          curriculum: "ICSE/IB PYP",
+          skills: ["Simple machines", "Mechanical advantage", "Problem solving"],
+          type: "investigation"
+        }
+      ]
     },
     {
-      id: 4,
-      title: "Space Quiz Adventure",
-      description: "Test your knowledge about planets and stars",
-      type: "quiz",
-      difficulty: 3,
-      points: 30,
-      duration: 8,
-      completed: false,
-      icon: "🚀",
-      materials: [],
-    },
+      title: "Earth & Environment",
+      icon: "🌍",
+      color: "from-emerald-400 to-emerald-600",
+      lessons: [
+        {
+          id: 9,
+          title: "Weather Patterns",
+          description: "Observe and predict weather changes and patterns",
+          grade: "3-4",
+          duration: "25 min",
+          difficulty: 1,
+          points: 15,
+          completed: false,
+          curriculum: "CBSE EVS/IB PYP",
+          skills: ["Weather observation", "Pattern recognition", "Data collection"],
+          type: "inquiry"
+        },
+        {
+          id: 10,
+          title: "Water Cycle Journey",
+          description: "Follow water as it moves through the environment",
+          grade: "4-6",
+          duration: "30 min",
+          difficulty: 2,
+          points: 20,
+          completed: false,
+          curriculum: "ICSE/CBSE EVS/IB",
+          skills: ["Water cycle", "Environmental systems", "Process understanding"],
+          type: "exploration"
+        }
+      ]
+    }
   ];
 
   return (
@@ -135,72 +246,113 @@ export default function Science() {
           </CardContent>
         </Card>
 
-        {/* Science Activities */}
+        {/* Science Skill Areas - Comprehensive Curriculum */}
         <section className="mb-8">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">Choose Your Experiment</h3>
-          <div className="space-y-4">
-            {scienceActivities.map((activity) => (
-              <Card 
-                key={activity.id} 
-                className={cn(
-                  "rounded-3xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.02]",
-                  activity.completed ? "bg-purple-50 border-purple-200" : "bg-white"
-                )}
-              >
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start space-x-4 flex-1">
-                      <div className="text-4xl">{activity.icon}</div>
-                      <div className="flex-1">
-                        <h4 className="font-bold text-lg text-gray-800 mb-1">
-                          {activity.title}
-                        </h4>
-                        <p className="text-gray-600 text-sm mb-2">
-                          {activity.description}
+          <h3 className="text-xl font-bold text-gray-800 mb-4">Science Curriculum (Grades 3-6)</h3>
+          <div className="space-y-6">
+            {scienceSkillAreas.map((area, areaIndex) => (
+              <div key={areaIndex} className="space-y-4">
+                {/* Skill Area Header */}
+                <Card className={cn("rounded-3xl shadow-lg bg-gradient-to-r", area.color)}>
+                  <CardContent className="p-6">
+                    <div className="flex items-center space-x-4 text-white">
+                      <div className="text-4xl">{area.icon}</div>
+                      <div>
+                        <h2 className="text-xl font-bold mb-1">{area.title}</h2>
+                        <p className="text-white/90 text-sm">
+                          {area.lessons.length} lessons • ICSE/CBSE EVS/IB PYP curriculum
                         </p>
-                        <div className="flex items-center flex-wrap gap-2 text-xs mb-2">
-                          <span className={cn(
-                            "px-2 py-1 rounded-full font-semibold",
-                            activity.type === "experiment" ? "bg-purple-100 text-purple-700" : "bg-blue-100 text-blue-700"
-                          )}>
-                            {activity.type === "experiment" ? "🧪 Experiment" : "📝 Quiz"}
-                          </span>
-                          <span className="flex items-center text-gray-500">
-                            <Clock size={12} className="mr-1" />
-                            {activity.duration} min
-                          </span>
-                          <span className="text-kid-purple font-semibold">
-                            +{activity.points} points
-                          </span>
-                        </div>
-                        {activity.materials.length > 0 && (
-                          <div className="text-xs text-gray-500">
-                            <span className="font-semibold">Materials needed:</span>
-                            <div className="flex flex-wrap gap-1 mt-1">
-                              {activity.materials.map((material, index) => (
-                                <span key={index} className="bg-gray-100 text-gray-600 px-2 py-1 rounded-lg">
-                                  {material}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Lessons in this skill area */}
+                <div className="space-y-3 ml-4">
+                  {area.lessons.map((lesson) => (
+                    <Card 
+                      key={lesson.id} 
+                      className={cn(
+                        "rounded-2xl shadow-md transition-all duration-300 hover:scale-102 cursor-pointer",
+                        lesson.completed 
+                          ? "bg-gradient-to-r from-green-50 to-green-100 border-green-200" 
+                          : "bg-white hover:shadow-lg"
+                      )}
+                    >
+                      <CardContent className="p-5">
+                        <div className="flex items-center justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center space-x-3 mb-2">
+                              <h3 className="text-lg font-bold text-gray-800">
+                                {lesson.title}
+                              </h3>
+                              <span className={cn(
+                                "px-2 py-1 rounded-full text-xs font-medium",
+                                lesson.difficulty === 1 ? "bg-green-100 text-green-700" :
+                                lesson.difficulty === 2 ? "bg-yellow-100 text-yellow-700" :
+                                "bg-red-100 text-red-700"
+                              )}>
+                                Grade {lesson.grade}
+                              </span>
+                              <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">
+                                {lesson.type}
+                              </span>
+                            </div>
+                            
+                            <p className="text-gray-600 text-sm mb-3">
+                              {lesson.description}
+                            </p>
+                            
+                            <div className="flex items-center space-x-4 mb-2">
+                              <div className="flex items-center space-x-1">
+                                <Trophy className="h-4 w-4 text-yellow-500" />
+                                <span className="text-sm font-medium text-gray-700">
+                                  {lesson.points} pts
+                                </span>
+                              </div>
+                              <div className="flex items-center space-x-1">
+                                <Clock className="h-4 w-4 text-gray-400" />
+                                <span className="text-sm text-gray-500">
+                                  {lesson.duration}
+                                </span>
+                              </div>
+                              <div className="flex items-center space-x-1">
+                                <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                                  {lesson.curriculum}
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* Skills Tags */}
+                            <div className="flex flex-wrap gap-1">
+                              {lesson.skills.map((skill, skillIndex) => (
+                                <span 
+                                  key={skillIndex}
+                                  className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full"
+                                >
+                                  {skill}
                                 </span>
                               ))}
                             </div>
                           </div>
-                        )}
-                      </div>
-                    </div>
-                    <div className="flex flex-col items-center space-y-2 ml-4">
-                      {activity.completed ? (
-                        <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
-                          <Trophy className="text-white" size={24} />
+                          
+                          <div className="flex items-center space-x-2 ml-4">
+                            {lesson.completed ? (
+                              <div className="bg-green-500 text-white rounded-full p-2">
+                                <Trophy className="h-5 w-5" />
+                              </div>
+                            ) : (
+                              <div className="bg-blue-500 text-white rounded-full p-2 hover:bg-blue-600 transition-colors">
+                                <Play className="h-5 w-5" />
+                              </div>
+                            )}
+                          </div>
                         </div>
-                      ) : (
-                        <button className="w-12 h-12 bg-kid-purple rounded-full flex items-center justify-center hover:bg-purple-600 transition-colors kid-button">
-                          <Play className="text-white" size={24} />
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </section>

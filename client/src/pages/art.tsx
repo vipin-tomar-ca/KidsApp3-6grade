@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
-import { motion } from 'framer-motion';
-import { Palette, Paintbrush, Camera, Award, ArrowLeft, Play, Pause } from 'lucide-react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { BottomNavigation } from "@/components/ui/bottom-navigation";
+import { NavigationHeader } from "@/components/ui/navigation-header";
+import { Palette, ArrowLeft, Play, Trophy, Clock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
 import DigitalArtCanvas from '@/components/DigitalArtCanvas';
 
 interface ArtPageState {
@@ -18,54 +20,165 @@ const ArtPage: React.FC = () => {
   // Get grade from navigation state (would normally come from props or context)
   const selectedGrade = 4; // Default for now
 
-  const artActivities = [
+  // Comprehensive Visual Arts Curriculum based on CBSE, ICSE & IB standards
+  const artSkillAreas = [
     {
-      id: 'drawing-lessons',
-      title: 'Drawing Lessons',
-      description: 'Learn to draw with step-by-step tutorials from Art for Kids Hub',
-      icon: '✏️',
-      color: 'bg-primary',
-      level: 'Art for Kids Hub',
-      action: () => {
-        setCurrentView('canvas');
-        setSelectedLesson(undefined);
-      }
+      title: "Drawing & Sketching",
+      icon: "✏️",
+      color: "from-blue-400 to-blue-600",
+      lessons: [
+        {
+          id: 1,
+          title: "Basic Lines & Shapes",
+          description: "Master fundamental drawing techniques with lines, circles, and shapes",
+          grade: "3-4",
+          duration: "20 min",
+          difficulty: 1,
+          points: 15,
+          completed: true,
+          curriculum: "CBSE/ICSE",
+          skills: ["Line drawing", "Shape formation", "Hand coordination"],
+          materials: ["Pencil", "Paper", "Eraser"]
+        },
+        {
+          id: 2,
+          title: "Still Life Drawing",
+          description: "Draw objects from observation to develop observational skills",
+          grade: "4-5",
+          duration: "30 min",
+          difficulty: 2,
+          points: 20,
+          completed: false,
+          curriculum: "IB PYP/CBSE",
+          skills: ["Observation", "Proportion", "Shading techniques"],
+          materials: ["Drawing pencils", "Paper", "Objects to draw"]
+        },
+        {
+          id: 3,
+          title: "Perspective Drawing",
+          description: "Learn basic perspective to create depth in drawings",
+          grade: "5-6",
+          duration: "35 min",
+          difficulty: 3,
+          points: 25,
+          completed: false,
+          curriculum: "ICSE/IB PYP",
+          skills: ["Perspective", "Depth", "Spatial understanding"],
+          materials: ["Pencils", "Ruler", "Paper"]
+        }
+      ]
     },
     {
-      id: 'guided-tutorials',
-      title: 'Guided Tutorials',
-      description: 'Follow along with interactive drawing guides',
-      icon: '🎨',
-      color: 'bg-success',
-      level: 'Step-by-Step',
-      action: () => {
-        setCurrentView('canvas');
-        setSelectedLesson('art_hub_drawing_4_1'); // Default to cute cat lesson
-      }
+      title: "Color & Painting",
+      icon: "🎨",
+      color: "from-red-400 to-red-600",
+      lessons: [
+        {
+          id: 4,
+          title: "Color Wheel Explorer",
+          description: "Discover primary, secondary colors and color mixing",
+          grade: "3-4",
+          duration: "25 min",
+          difficulty: 1,
+          points: 15,
+          completed: true,
+          curriculum: "CBSE/ICSE",
+          skills: ["Color theory", "Color mixing", "Primary/secondary colors"],
+          materials: ["Watercolors", "Brushes", "Paper", "Water"]
+        },
+        {
+          id: 5,
+          title: "Landscape Painting",
+          description: "Paint natural scenes using different techniques and colors",
+          grade: "4-5",
+          duration: "40 min",
+          difficulty: 2,
+          points: 20,
+          completed: false,
+          curriculum: "IB PYP/CBSE",
+          skills: ["Landscape composition", "Brush techniques", "Color application"],
+          materials: ["Poster colors", "Brushes", "Canvas/paper"]
+        },
+        {
+          id: 6,
+          title: "Abstract Art Creation",
+          description: "Express emotions and ideas through abstract painting",
+          grade: "5-6",
+          duration: "35 min",
+          difficulty: 2,
+          points: 20,
+          completed: false,
+          curriculum: "IB PYP/ICSE",
+          skills: ["Abstract expression", "Color harmony", "Creative thinking"],
+          materials: ["Acrylic paints", "Canvas", "Various brushes"]
+        }
+      ]
     },
     {
-      id: 'free-drawing',
-      title: 'Free Drawing',
-      description: 'Create your own masterpiece on the digital canvas',
-      icon: '🖌️',
-      color: 'bg-warning',
-      level: 'Creative Mode',
-      action: () => {
-        setCurrentView('canvas');
-        setSelectedLesson(undefined);
-      }
+      title: "Craft & 3D Art",
+      icon: "🏺",
+      color: "from-green-400 to-green-600",
+      lessons: [
+        {
+          id: 7,
+          title: "Clay Modeling",
+          description: "Create 3D sculptures using clay and modeling techniques",
+          grade: "3-4",
+          duration: "30 min",
+          difficulty: 1,
+          points: 15,
+          completed: false,
+          curriculum: "CBSE/ICSE",
+          skills: ["3D modeling", "Sculpting", "Fine motor skills"],
+          materials: ["Clay", "Modeling tools", "Water"]
+        },
+        {
+          id: 8,
+          title: "Collage & Mixed Media",
+          description: "Combine different materials to create textured artwork",
+          grade: "4-6",
+          duration: "35 min",
+          difficulty: 2,
+          points: 20,
+          completed: false,
+          curriculum: "IB PYP/CBSE",
+          skills: ["Mixed media", "Texture creation", "Material exploration"],
+          materials: ["Paper", "Fabric", "Natural materials", "Glue"]
+        }
+      ]
     },
     {
-      id: 'art-gallery',
-      title: 'My Art Gallery',
-      description: 'View and manage your saved artwork',
-      icon: '🖼️',
-      color: 'bg-info',
-      level: 'Portfolio',
-      action: () => {
-        // TODO: Navigate to art gallery
-        alert('Art Gallery feature coming soon!');
-      }
+      title: "Cultural Arts",
+      icon: "🌍",
+      color: "from-purple-400 to-purple-600",
+      lessons: [
+        {
+          id: 9,
+          title: "Folk Art Patterns",
+          description: "Explore traditional art forms like Rangoli, Mandala, and Alpana",
+          grade: "3-5",
+          duration: "25 min",
+          difficulty: 1,
+          points: 15,
+          completed: false,
+          curriculum: "CBSE/ICSE",
+          skills: ["Cultural awareness", "Pattern making", "Traditional techniques"],
+          materials: ["Colored powders", "Chalk", "Paper"]
+        },
+        {
+          id: 10,
+          title: "World Art Exploration",
+          description: "Study and create art inspired by different cultures",
+          grade: "5-6",
+          duration: "30 min",
+          difficulty: 2,
+          points: 20,
+          completed: false,
+          curriculum: "IB PYP",
+          skills: ["Cultural appreciation", "Art history", "Global perspective"],
+          materials: ["Various art supplies", "Reference images"]
+        }
+      ]
     }
   ];
 
@@ -94,140 +207,206 @@ const ArtPage: React.FC = () => {
   }
 
   return (
-    <div className="bg-kid-gradient min-vh-100">
-      <Container className="py-5">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center text-white mb-5"
-        >
-          <h1 className="display-3 fw-bold mb-3">
-            <Palette className="me-3" size={60} />
-            Art Studio!
-          </h1>
-          <p className="lead">
-            Create amazing digital artwork and learn drawing skills for Grade {selectedGrade}
-          </p>
-        </motion.div>
+    <div className="bg-kid-gradient min-h-screen pb-20">
+      {/* Navigation Header */}
+      <NavigationHeader 
+        title="Art Studio"
+        progress={60}
+      />
 
-        <Alert variant="info" className="rounded-4 mb-4">
-          <div className="d-flex align-items-center">
-            <Award className="me-3" size={24} />
-            <div>
-              <strong>Art for Kids Hub Inspired:</strong> Learn drawing fundamentals with guided tutorials adapted from popular YouTube art lessons, designed for young artists!
-            </div>
-          </div>
-        </Alert>
-
-        <Row className="g-4">
-          {artActivities.map((activity, index) => (
-            <Col key={activity.id} md={6} lg={3}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Card className="h-100 rounded-4 shadow-lg border-0 kid-button">
-                  <Card.Body className="text-center p-4">
-                    <div className={`${activity.color} text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center`} 
-                         style={{ width: '80px', height: '80px' }}>
-                      <span style={{ fontSize: '2rem' }}>{activity.icon}</span>
-                    </div>
-                    
-                    <h4 className="fw-bold mb-2">{activity.title}</h4>
-                    <p className="text-muted mb-3">{activity.description}</p>
-                    
-                    <div className="mb-3">
-                      <span className="badge bg-light text-dark rounded-pill">
-                        {activity.level}
-                      </span>
-                    </div>
-                    
-                    <div className="d-grid gap-2">
-                      <Button
-                        variant="primary"
-                        className="rounded-3 fw-bold"
-                        onClick={activity.action}
-                      >
-                        <Play className="me-2" size={16} />
-                        Start Creating!
-                      </Button>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </motion.div>
-            </Col>
-          ))}
-        </Row>
-
-        {/* Featured Tutorials Section */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="mt-5"
-        >
-          <h3 className="text-white text-center mb-4">Featured Drawing Tutorials</h3>
-          <Row className="g-3">
-            {[
-              { id: 'cat', title: 'Cute Cartoon Cat', difficulty: 'Easy', time: '30 min', emoji: '🐱' },
-              { id: 'landscape', title: 'Simple Landscape', difficulty: 'Medium', time: '45 min', emoji: '🏔️' },
-              { id: 'portrait', title: 'Self Portrait', difficulty: 'Medium', time: '50 min', emoji: '👤' },
-              { id: 'still-life', title: 'Fruit Bowl', difficulty: 'Hard', time: '60 min', emoji: '🍎' }
-            ].map((tutorial) => (
-              <Col key={tutorial.id} md={6} lg={3}>
-                <Card className="rounded-3 shadow border-0">
-                  <Card.Body className="text-center p-3">
-                    <div className="mb-2" style={{ fontSize: '2rem' }}>{tutorial.emoji}</div>
-                    <h6 className="fw-bold">{tutorial.title}</h6>
-                    <div className="d-flex justify-content-between small text-muted">
-                      <span>{tutorial.difficulty}</span>
-                      <span>{tutorial.time}</span>
-                    </div>
-                    <Button
-                      variant="outline-primary"
-                      size="sm"
-                      className="mt-2 w-100"
-                      onClick={() => {
-                        setSelectedLesson(`art_hub_drawing_${selectedGrade}_${tutorial.id === 'cat' ? '1' : tutorial.id === 'landscape' ? '2' : tutorial.id === 'portrait' ? '3' : '4'}`);
-                        setCurrentView('canvas');
-                      }}
-                    >
-                      Try This!
-                    </Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-        </motion.div>
-
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="text-center mt-5"
-        >
-          <Alert variant="success" className="rounded-4 mb-4">
+      <div className="max-w-md mx-auto px-4">
+        {/* Welcome Message */}
+        <Card className="rounded-3xl shadow-lg mb-6 bg-gradient-to-r from-purple-50 to-pink-100">
+          <CardContent className="pt-6">
             <div className="text-center">
-              <h5 className="fw-bold mb-2">🎨 National Visual Arts Standards</h5>
-              <p className="mb-0">
-                Our art curriculum follows National Visual Arts Standards and NAEYC play-based learning principles, 
-                encouraging creativity, observation skills, and artistic expression in age-appropriate ways.
+              <div className="text-6xl mb-4">🎨</div>
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                Welcome to Art Studio!
+              </h2>
+              <p className="text-gray-600">
+                Create amazing artwork and learn drawing skills for Grade {selectedGrade}
               </p>
             </div>
-          </Alert>
-          
-          <Button
-            variant="light"
-            size="lg"
-            className="rounded-4 fw-bold px-4"
-            onClick={() => navigate('/subjects')}
-          >
-            Back to Subjects
-          </Button>
-        </motion.div>
-      </Container>
+          </CardContent>
+        </Card>
+
+        {/* Progress Overview */}
+        <Card className="rounded-3xl shadow-lg mb-6">
+          <CardHeader>
+            <CardTitle className="flex items-center text-lg">
+              <Palette className="mr-2 text-kid-purple" size={20} />
+              Your Art Journey
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-3 gap-4 text-center">
+              <div className="bg-purple-50 rounded-2xl p-4">
+                <div className="text-2xl font-bold text-kid-purple">8</div>
+                <div className="text-sm text-gray-600">Artworks</div>
+              </div>
+              <div className="bg-blue-50 rounded-2xl p-4">
+                <div className="text-2xl font-bold text-kid-blue">160</div>
+                <div className="text-sm text-gray-600">Points</div>
+              </div>
+              <div className="bg-yellow-50 rounded-2xl p-4">
+                <div className="text-2xl font-bold text-yellow-600">4</div>
+                <div className="text-sm text-gray-600">Badges</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Art Skill Areas - Comprehensive Curriculum */}
+        <section className="mb-8">
+          <h3 className="text-xl font-bold text-gray-800 mb-4">Visual Arts Curriculum (Grades 3-6)</h3>
+          <div className="space-y-6">
+            {artSkillAreas.map((area, areaIndex) => (
+              <div key={areaIndex} className="space-y-4">
+                {/* Skill Area Header */}
+                <Card className={cn("rounded-3xl shadow-lg bg-gradient-to-r", area.color)}>
+                  <CardContent className="p-6">
+                    <div className="flex items-center space-x-4 text-white">
+                      <div className="text-4xl">{area.icon}</div>
+                      <div>
+                        <h2 className="text-xl font-bold mb-1">{area.title}</h2>
+                        <p className="text-white/90 text-sm">
+                          {area.lessons.length} lessons • CBSE/ICSE/IB curriculum
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Lessons in this skill area */}
+                <div className="space-y-3 ml-4">
+                  {area.lessons.map((lesson) => (
+                    <Card 
+                      key={lesson.id} 
+                      className={cn(
+                        "rounded-2xl shadow-md transition-all duration-300 hover:scale-102 cursor-pointer",
+                        lesson.completed 
+                          ? "bg-gradient-to-r from-green-50 to-green-100 border-green-200" 
+                          : "bg-white hover:shadow-lg"
+                      )}
+                      onClick={() => {
+                        setCurrentView('canvas');
+                        setSelectedLesson(`art_lesson_${lesson.id}`);
+                      }}
+                    >
+                      <CardContent className="p-5">
+                        <div className="flex items-center justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-center space-x-3 mb-2">
+                              <h3 className="text-lg font-bold text-gray-800">
+                                {lesson.title}
+                              </h3>
+                              <span className={cn(
+                                "px-2 py-1 rounded-full text-xs font-medium",
+                                lesson.difficulty === 1 ? "bg-green-100 text-green-700" :
+                                lesson.difficulty === 2 ? "bg-yellow-100 text-yellow-700" :
+                                "bg-red-100 text-red-700"
+                              )}>
+                                Grade {lesson.grade}
+                              </span>
+                            </div>
+                            
+                            <p className="text-gray-600 text-sm mb-3">
+                              {lesson.description}
+                            </p>
+                            
+                            <div className="flex items-center space-x-4 mb-2">
+                              <div className="flex items-center space-x-1">
+                                <Trophy className="h-4 w-4 text-yellow-500" />
+                                <span className="text-sm font-medium text-gray-700">
+                                  {lesson.points} pts
+                                </span>
+                              </div>
+                              <div className="flex items-center space-x-1">
+                                <Clock className="h-4 w-4 text-gray-400" />
+                                <span className="text-sm text-gray-500">
+                                  {lesson.duration}
+                                </span>
+                              </div>
+                              <div className="flex items-center space-x-1">
+                                <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
+                                  {lesson.curriculum}
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* Skills Tags */}
+                            <div className="flex flex-wrap gap-1 mb-2">
+                              {lesson.skills.map((skill, skillIndex) => (
+                                <span 
+                                  key={skillIndex}
+                                  className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full"
+                                >
+                                  {skill}
+                                </span>
+                              ))}
+                            </div>
+
+                            {/* Materials */}
+                            {lesson.materials && (
+                              <div className="text-xs text-gray-500">
+                                <span className="font-semibold">Materials:</span>
+                                <div className="flex flex-wrap gap-1 mt-1">
+                                  {lesson.materials.map((material, materialIndex) => (
+                                    <span key={materialIndex} className="bg-orange-100 text-orange-700 px-2 py-1 rounded">
+                                      {material}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                          
+                          <div className="flex items-center space-x-2 ml-4">
+                            {lesson.completed ? (
+                              <div className="bg-green-500 text-white rounded-full p-2">
+                                <Trophy className="h-5 w-5" />
+                              </div>
+                            ) : (
+                              <div className="bg-purple-500 text-white rounded-full p-2 hover:bg-purple-600 transition-colors">
+                                <Play className="h-5 w-5" />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Quick Art Tools */}
+        <Card className="rounded-3xl shadow-lg mb-8 bg-gradient-to-r from-pink-500 to-purple-500">
+          <CardContent className="pt-6 text-center">
+            <div className="text-white">
+              <div className="text-4xl mb-4">🖌️</div>
+              <h3 className="text-xl font-bold mb-2">Quick Create</h3>
+              <p className="text-pink-100 mb-4">
+                Jump into free drawing mode!
+              </p>
+              <button 
+                className="bg-white text-purple-600 font-bold py-2 px-6 rounded-xl kid-button text-sm"
+                onClick={() => {
+                  setCurrentView('canvas');
+                  setSelectedLesson(undefined);
+                }}
+              >
+                Start Drawing ✏️
+              </button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Bottom Navigation */}
+      <BottomNavigation />
     </div>
   );
 };
