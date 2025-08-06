@@ -150,80 +150,428 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
   const loadMusicLessons = async () => {
     setLoading(true);
     try {
-      // Create enhanced music theory lessons with progression
+      // Comprehensive music theory curriculum based on ICSE, CBSE, IB and Kodaly/Orff methods
+      const gradeLevel = Math.min(grade, 6) as 3 | 4 | 5 | 6;
       const enhancedLessons: MusicLesson[] = [
+        // FOUNDATION LEVEL - Musical Notes & Pitch Recognition
         {
-          id: 'notes-basics',
-          title: 'Musical Notes & Sounds',
-          description: 'Learn about different musical notes and their sounds',
-          grade: Math.min(grade, 6) as 3 | 4 | 5 | 6,
+          id: 'musical-sounds',
+          title: 'Musical Sounds Around Us',
+          description: 'Discover different types of sounds and learn to identify musical vs non-musical sounds',
+          grade: gradeLevel,
           category: 'notes',
           difficulty: 1,
-          duration: 10,
+          duration: 15,
           exercises: [
             {
-              id: 'note-recognition-1',
-              title: 'Note Name Game',
+              id: 'sound-identification',
+              title: 'Musical or Not?',
               type: 'listening',
               difficulty: 1,
-              instructions: 'Listen to each note and select its name'
+              instructions: 'Listen to each sound and decide if it is musical or not musical'
+            },
+            {
+              id: 'pitch-high-low',
+              title: 'High and Low Sounds',
+              type: 'listening',
+              difficulty: 1,
+              instructions: 'Listen to pairs of sounds and identify which is higher or lower'
             }
           ]
         },
         {
-          id: 'rhythm-basics',
-          title: 'Clap Along - Basic Rhythm',
-          description: 'Feel the beat and clap simple rhythms',
-          grade: Math.min(grade, 6) as 3 | 4 | 5 | 6,
+          id: 'note-names-staff',
+          title: 'Musical Alphabet & Staff Notation',
+          description: 'Learn the seven letter names of music (A-G) and introduction to the staff',
+          grade: gradeLevel,
+          category: 'notes',
+          difficulty: 1,
+          duration: 20,
+          exercises: [
+            {
+              id: 'letter-names',
+              title: 'Musical Alphabet Game',
+              type: 'note-identification',
+              difficulty: 1,
+              instructions: 'Match the musical letters A through G in the correct order'
+            },
+            {
+              id: 'staff-lines-spaces',
+              title: 'Lines and Spaces',
+              type: 'note-identification',
+              difficulty: 2,
+              instructions: 'Identify notes on the lines and spaces of the treble clef staff'
+            }
+          ]
+        },
+        {
+          id: 'solfege-basics',
+          title: 'Do-Re-Mi Solfege System',
+          description: 'Learn the Kodaly solfege system starting with Do-Mi-So-La',
+          grade: gradeLevel,
+          category: 'notes',
+          difficulty: 2,
+          duration: 25,
+          exercises: [
+            {
+              id: 'do-mi-so',
+              title: 'Three Note Songs',
+              type: 'listening',
+              difficulty: 1,
+              instructions: 'Sing along with simple Do-Mi-So patterns using hand signs'
+            },
+            {
+              id: 'solfege-echo',
+              title: 'Solfege Echo Game',
+              type: 'listening',
+              difficulty: 2,
+              instructions: 'Listen to solfege patterns and echo them back with correct hand signs'
+            }
+          ]
+        },
+
+        // RHYTHM & METER SECTION
+        {
+          id: 'steady-beat',
+          title: 'Finding the Steady Beat',
+          description: 'Learn to feel and maintain a steady beat through movement and clapping',
+          grade: gradeLevel,
           category: 'rhythm',
           difficulty: 1,
           duration: 15,
           exercises: [
             {
-              id: 'clap-rhythm-1',
+              id: 'beat-walk',
+              title: 'Walking to the Beat',
+              type: 'rhythm-game',
+              difficulty: 1,
+              instructions: 'March in place keeping a steady beat with the music'
+            },
+            {
+              id: 'clap-patterns',
               title: 'Clap the Beat',
               type: 'rhythm-game',
               difficulty: 1,
-              instructions: 'Clap along with the steady beat'
+              instructions: 'Clap along with simple rhythm patterns'
             }
           ]
         },
         {
-          id: 'piano-intro',
-          title: 'Piano Keys Adventure',
-          description: 'Explore the piano keyboard and play your first notes',
-          grade: Math.min(grade, 6) as 3 | 4 | 5 | 6,
-          category: 'theory',
+          id: 'note-values',
+          title: 'Note Values: Quarter, Half, and Whole Notes',
+          description: 'Learn about different note lengths and how they relate to the beat',
+          grade: gradeLevel,
+          category: 'rhythm',
           difficulty: 2,
-          duration: 12,
+          duration: 20,
           exercises: [
             {
-              id: 'piano-play-1',
-              title: 'Find Middle C',
-              type: 'note-identification',
-              difficulty: 1,
-              instructions: 'Click on the middle C key'
+              id: 'note-matching',
+              title: 'Match the Note Values',
+              type: 'rhythm-game',
+              difficulty: 2,
+              instructions: 'Match rhythm patterns to their corresponding note values'
+            },
+            {
+              id: 'clap-rhythms',
+              title: 'Clap Different Rhythms',
+              type: 'rhythm-game',
+              difficulty: 2,
+              instructions: 'Clap patterns using quarter notes, half notes, and whole notes'
             }
           ]
         },
         {
-          id: 'scales-intro',
-          title: 'Musical Scales',
-          description: 'Learn about major and minor scales',
-          grade: Math.min(grade, 6) as 3 | 4 | 5 | 6,
-          category: 'scales',
+          id: 'time-signatures',
+          title: 'Time Signatures: 2/4, 3/4, and 4/4',
+          description: 'Understanding how beats are grouped in measures',
+          grade: gradeLevel,
+          category: 'rhythm',
           difficulty: 3,
+          duration: 25,
+          exercises: [
+            {
+              id: 'count-beats',
+              title: 'Counting in Different Meters',
+              type: 'rhythm-game',
+              difficulty: 2,
+              instructions: 'Count "1-2" for 2/4, "1-2-3" for 3/4, and "1-2-3-4" for 4/4 time'
+            },
+            {
+              id: 'conduct-patterns',
+              title: 'Conducting Patterns',
+              type: 'rhythm-game',
+              difficulty: 3,
+              instructions: 'Practice conducting patterns for 2/4, 3/4, and 4/4 time signatures'
+            }
+          ]
+        },
+
+        // PIANO & KEYBOARD EXPLORATION
+        {
+          id: 'keyboard-layout',
+          title: 'Piano Keyboard Layout',
+          description: 'Explore the piano keyboard and learn about white and black keys',
+          grade: gradeLevel,
+          category: 'theory',
+          difficulty: 1,
           duration: 18,
           exercises: [
             {
-              id: 'scale-play-1',
-              title: 'Play C Major Scale',
-              type: 'scale-practice',
-              difficulty: 2,
-              instructions: 'Play each note of the C major scale in order'
+              id: 'black-white-keys',
+              title: 'Black and White Key Patterns',
+              type: 'note-identification',
+              difficulty: 1,
+              instructions: 'Identify the pattern of black key groups (2s and 3s) on the keyboard'
+            },
+            {
+              id: 'find-middle-c',
+              title: 'Finding Middle C',
+              type: 'note-identification',
+              difficulty: 1,
+              instructions: 'Locate Middle C using the group of two black keys'
             }
           ]
-        }
+        },
+        {
+          id: 'five-finger-patterns',
+          title: 'Five-Finger Patterns',
+          description: 'Learn basic five-finger patterns starting from different notes',
+          grade: gradeLevel,
+          category: 'theory',
+          difficulty: 2,
+          duration: 22,
+          exercises: [
+            {
+              id: 'c-position',
+              title: 'C Position Playing',
+              type: 'note-identification',
+              difficulty: 2,
+              instructions: 'Play simple melodies using C-D-E-F-G (thumb to pinky)'
+            },
+            {
+              id: 'finger-numbers',
+              title: 'Finger Number Game',
+              type: 'note-identification',
+              difficulty: 1,
+              instructions: 'Match finger numbers (1-5) to the correct keys in C position'
+            }
+          ]
+        },
+
+        // SCALES AND MODES
+        {
+          id: 'major-scale-introduction',
+          title: 'The Major Scale',
+          description: 'Learn the pattern of whole and half steps that make a major scale',
+          grade: gradeLevel,
+          category: 'scales',
+          difficulty: 2,
+          duration: 25,
+          exercises: [
+            {
+              id: 'c-major-scale',
+              title: 'C Major Scale Practice',
+              type: 'scale-practice',
+              difficulty: 2,
+              instructions: 'Play the C major scale using the correct fingering'
+            },
+            {
+              id: 'scale-degrees',
+              title: 'Scale Degree Numbers',
+              type: 'scale-practice',
+              difficulty: 2,
+              instructions: 'Learn the numbers 1-8 for each note of the major scale'
+            }
+          ]
+        },
+        {
+          id: 'pentatonic-scales',
+          title: 'Pentatonic Scales',
+          description: 'Explore the five-note pentatonic scale used in many world music traditions',
+          grade: gradeLevel,
+          category: 'scales',
+          difficulty: 2,
+          duration: 20,
+          exercises: [
+            {
+              id: 'black-key-pentatonic',
+              title: 'Black Key Pentatonic',
+              type: 'scale-practice',
+              difficulty: 2,
+              instructions: 'Play melodies using only the black keys on the piano'
+            },
+            {
+              id: 'world-music-scales',
+              title: 'Music from Around the World',
+              type: 'listening',
+              difficulty: 1,
+              instructions: 'Listen to pentatonic melodies from different cultures'
+            }
+          ]
+        },
+
+        // CHORDS AND HARMONY
+        {
+          id: 'simple-chords',
+          title: 'Introduction to Chords',
+          description: 'Learn what chords are and practice playing simple three-note chords',
+          grade: gradeLevel,
+          category: 'chords',
+          difficulty: 3,
+          duration: 20,
+          exercises: [
+            {
+              id: 'c-major-chord',
+              title: 'C Major Chord',
+              type: 'note-identification',
+              difficulty: 2,
+              instructions: 'Learn to play the C major chord (C-E-G)'
+            },
+            {
+              id: 'chord-progressions',
+              title: 'Simple Chord Changes',
+              type: 'listening',
+              difficulty: 3,
+              instructions: 'Listen to simple I-V chord progressions'
+            }
+          ]
+        },
+
+        // MUSICAL EXPRESSION & DYNAMICS
+        {
+          id: 'dynamics-tempo',
+          title: 'Musical Expression: Loud, Soft, Fast, Slow',
+          description: 'Learn about dynamics (volume) and tempo (speed) in music',
+          grade: gradeLevel,
+          category: 'theory',
+          difficulty: 1,
+          duration: 15,
+          exercises: [
+            {
+              id: 'dynamic-levels',
+              title: 'Forte and Piano',
+              type: 'listening',
+              difficulty: 1,
+              instructions: 'Identify loud (forte) and soft (piano) sections in music'
+            },
+            {
+              id: 'tempo-changes',
+              title: 'Fast and Slow Music',
+              type: 'listening',
+              difficulty: 1,
+              instructions: 'Move to music and show tempo changes with your body'
+            }
+          ]
+        },
+
+        // MUSICAL FORMS & STRUCTURE
+        {
+          id: 'musical-forms',
+          title: 'Musical Forms: AB and ABA',
+          description: 'Learn about how music is organized into sections and patterns',
+          grade: gradeLevel,
+          category: 'theory',
+          difficulty: 2,
+          duration: 18,
+          exercises: [
+            {
+              id: 'ab-form',
+              title: 'Two Section Songs (AB Form)',
+              type: 'listening',
+              difficulty: 2,
+              instructions: 'Listen to songs and identify when section A changes to section B'
+            },
+            {
+              id: 'aba-form',
+              title: 'Three Section Songs (ABA Form)',
+              type: 'listening',
+              difficulty: 2,
+              instructions: 'Identify ABA form where the first section returns at the end'
+            }
+          ]
+        },
+
+        // WORLD MUSIC & CULTURAL APPRECIATION
+        {
+          id: 'world-music-traditions',
+          title: 'Music from Around the World',
+          description: 'Explore musical traditions from different cultures and countries',
+          grade: gradeLevel,
+          category: 'theory',
+          difficulty: 1,
+          duration: 25,
+          exercises: [
+            {
+              id: 'cultural-instruments',
+              title: 'Instruments of the World',
+              type: 'listening',
+              difficulty: 1,
+              instructions: 'Listen to and identify instruments from different cultures'
+            },
+            {
+              id: 'folk-songs',
+              title: 'Folk Songs from Many Lands',
+              type: 'listening',
+              difficulty: 1,
+              instructions: 'Learn simple folk songs from various countries'
+            }
+          ]
+        },
+
+        // ADVANCED CONCEPTS FOR HIGHER GRADES
+        ...(gradeLevel >= 5 ? [
+          {
+            id: 'intervals-introduction',
+            title: 'Musical Intervals',
+            description: 'Learn about the distance between notes and basic interval recognition',
+            grade: gradeLevel,
+            category: 'theory' as const,
+            difficulty: 3,
+            duration: 22,
+            exercises: [
+              {
+                id: 'step-skip-jump',
+                title: 'Steps, Skips, and Jumps',
+                type: 'listening' as const,
+                difficulty: 2,
+                instructions: 'Identify melodic motion as steps, skips, or jumps'
+              },
+              {
+                id: 'octave-recognition',
+                title: 'The Octave',
+                type: 'listening' as const,
+                difficulty: 3,
+                instructions: 'Recognize when two notes are an octave apart'
+              }
+            ]
+          },
+          {
+            id: 'minor-scales',
+            title: 'Major and Minor Scales',
+            description: 'Compare and contrast major and minor scales and their emotional qualities',
+            grade: gradeLevel,
+            category: 'scales' as const,
+            difficulty: 3,
+            duration: 25,
+            exercises: [
+              {
+                id: 'major-minor-listening',
+                title: 'Happy or Sad?',
+                type: 'listening' as const,
+                difficulty: 2,
+                instructions: 'Listen to scales and melodies and identify major (happy) vs minor (sad)'
+              },
+              {
+                id: 'natural-minor-scale',
+                title: 'A Minor Scale',
+                type: 'scale-practice' as const,
+                difficulty: 3,
+                instructions: 'Learn to play the A natural minor scale'
+              }
+            ]
+          }
+        ] : [])
       ];
       
       setLessons(enhancedLessons);
