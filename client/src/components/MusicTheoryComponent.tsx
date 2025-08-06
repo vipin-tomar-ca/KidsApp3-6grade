@@ -617,21 +617,21 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
         console.log('Tone.js started!');
       }
       
-      // Create a new synth for each note to ensure it plays
+      // Create a new synth with piano-like sound
       const synth = new Tone.Synth({
         oscillator: {
-          type: 'sine'
+          type: 'triangle'
         },
         envelope: {
-          attack: 0.1,
-          decay: 0.2,
+          attack: 0.02,
+          decay: 0.1,
           sustain: 0.3,
-          release: 0.5
+          release: 1
         }
       }).toDestination();
       
       const frequency = Tone.Frequency(midiNumber, "midi").toFrequency();
-      synth.triggerAttackRelease(frequency, '0.5');
+      synth.triggerAttackRelease(frequency, '1');
       
       console.log(`Playing note: MIDI ${midiNumber}, Frequency: ${frequency}Hz`);
       
