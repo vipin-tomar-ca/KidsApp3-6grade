@@ -1,7 +1,7 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
-import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
+import { initializeApp, FirebaseApp } from 'firebase/app';
+import { getFirestore, Firestore } from 'firebase/firestore';
+import { getAuth, Auth } from 'firebase/auth';
+import { getFunctions, Functions } from 'firebase/functions';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -13,27 +13,42 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID || ''
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// Check if Firebase is properly configured
+const isFirebaseConfigured = 
+  firebaseConfig.apiKey && 
+  firebaseConfig.authDomain && 
+  firebaseConfig.projectId && 
+  firebaseConfig.storageBucket && 
+  firebaseConfig.messagingSenderId && 
+  firebaseConfig.appId &&
+  firebaseConfig.apiKey !== '' &&
+  firebaseConfig.authDomain !== '';
 
-// Initialize Firebase services
-export const db = getFirestore(app);
-export const auth = getAuth(app);
-export const functions = getFunctions(app);
+let app: FirebaseApp | null = null;
+let db: Firestore | null = null;
+let auth: Auth | null = null;
+let functions: Functions | null = null;
 
-// Connect to emulators in development
-if (import.meta.env.DEV) {
+// Initialize Firebase only if properly configured
+if (isFirebaseConfigured) {
   try {
-    // Only connect if not already connected
-    if (!db._delegate._databaseId.projectId.includes('demo-')) {
-      connectFirestoreEmulator(db, 'localhost', 8080);
-    }
-    if (!functions.app.options.projectId?.includes('demo-')) {
-      connectFunctionsEmulator(functions, 'localhost', 5001);
-    }
+    app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+    auth = getAuth(app);
+    functions = getFunctions(app);
+    console.log('✅ Firebase initialized successfully');
   } catch (error) {
-    console.log('Firebase emulators already connected or not available');
+    console.warn('🔧 Firebase initialization failed, using offline mode:', error);
+    app = null;
+    db = null;
+    auth = null;
+    functions = null;
   }
+} else {
+  console.warn('🔧 Firebase not configured - using offline mode');
+  console.warn('To enable Firebase: Set VITE_FIREBASE_API_KEY and other required environment variables');
 }
 
+// Export Firebase services (may be null if not configured)
+export { db, auth, functions, isFirebaseConfigured };
 export default app;

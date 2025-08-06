@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { 
   Cloud, 
   CloudOff, 
-  Sync, 
+  RefreshCw, 
   Shield, 
   Database,
   CheckCircle,
@@ -254,7 +254,7 @@ const FirebaseSync: React.FC<FirebaseSyncProps> = ({
                   </>
                 ) : (
                   <>
-                    <Sync className="me-2" size={16} />
+                    <RefreshCw className="me-2" size={16} />
                     Sync Progress ({syncStatus.pendingSync})
                   </>
                 )}

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { 
   Database, 
   Cloud, 
-  Sync, 
+  RefreshCw, 
   BookOpen,
   Users,
   Shield,
@@ -239,7 +239,7 @@ const FirebaseDemo: React.FC = () => {
                         className="w-100"
                         disabled={isLoading}
                       >
-                        <Sync className="me-1" size={14} />
+                        <RefreshCw className="me-1" size={14} />
                         Refresh
                       </Button>
                     </Col>

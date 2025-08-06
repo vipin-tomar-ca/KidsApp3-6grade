@@ -77,12 +77,12 @@ export default function Home() {
       path: "/art",
     },
     {
-      name: "AI Hints",
-      subject: "ai-hints", 
-      description: "Smart Learning Help",
+      name: "Firebase Demo",
+      subject: "firebase", 
+      description: "Cloud Content",
       icon: Shield,
       bgColor: "bg-gradient-to-br from-indigo-500 to-indigo-700",
-      path: "/llm-demo",
+      path: "/firebase-demo",
     },
   ];
 
