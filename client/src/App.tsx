@@ -16,6 +16,7 @@ import GradeSelection from "@/pages/grade-selection";
 import SubjectSelection from "@/pages/subject-selection";
 import MusicPage from "@/pages/music";
 import OlympiadPage from "@/pages/olympiad";
+import CompetitionPage from "@/pages/competition";
 import WorkspacePage from "@/pages/workspace";
 import ContentBrowser from "@/pages/content-browser";
 import ChildSafetyWrapper from "@/components/ChildSafetyWrapper";
@@ -44,6 +45,7 @@ function App() {
             <Route path="/art" element={<Art />} />
             <Route path="/music" element={<MusicPage />} />
             <Route path="/olympiad" element={<OlympiadPage />} />
+            <Route path="/competition" element={<CompetitionPage />} />
             <Route path="/workspace" element={<WorkspacePage />} />
             <Route path="/content-browser" element={<ContentBrowser />} />
             <Route path="/integrity-demo" element={<IntegrityDemo />} />

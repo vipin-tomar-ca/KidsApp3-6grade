@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { AccessibilityToolbar, SpeakableText } from "@/components/ui/accessibility";
-import { GraduationCap, ArrowRight, Star } from "lucide-react";
+import { GraduationCap, ArrowRight, Star, Play, Trophy } from "lucide-react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -45,10 +45,14 @@ export default function GradeSelection() {
     },
   ];
 
-  const handleGradeSelect = (grade: number) => {
+  const handleGradeSelect = (grade: number, mode: 'learning' | 'competition' = 'learning') => {
     setSelectedGrade(grade);
     setTimeout(() => {
-      navigate('/subjects', { state: { selectedGrade: grade } });
+      if (mode === 'competition') {
+        navigate('/competition', { state: { selectedGrade: grade } });
+      } else {
+        navigate('/subjects', { state: { selectedGrade: grade } });
+      }
     }, 500);
   };
 
@@ -113,19 +117,33 @@ export default function GradeSelection() {
                     </div>
                   </div>
                   
-                  <button 
-                    className={cn(
-                      "w-full mt-6 bg-gradient-to-r", 
-                      gradeInfo.color,
-                      "text-white font-bold py-4 rounded-2xl text-xl transition-all duration-300 kid-button shadow-lg"
-                    )}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleGradeSelect(gradeInfo.grade);
-                    }}
-                  >
-                    Start Learning! 🎉
-                  </button>
+                  <div className="space-y-3 mt-6">
+                    <button 
+                      className={cn(
+                        "w-full bg-gradient-to-r", 
+                        gradeInfo.color,
+                        "text-white font-bold py-4 rounded-2xl text-xl transition-all duration-300 kid-button shadow-lg"
+                      )}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleGradeSelect(gradeInfo.grade);
+                      }}
+                    >
+                      <Play className="inline-block mr-2" size={20} />
+                      Start Learning
+                    </button>
+                    
+                    <button 
+                      className="w-full bg-gradient-to-r from-yellow-500 to-red-500 text-white font-bold py-3 rounded-2xl text-lg transition-all duration-300 kid-button shadow-lg hover:scale-105"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleGradeSelect(gradeInfo.grade, 'competition');
+                      }}
+                    >
+                      <Trophy className="inline-block mr-2" size={18} />
+                      Compete with Best
+                    </button>
+                  </div>
                 </CardContent>
               </Card>
             </CSSTransition>

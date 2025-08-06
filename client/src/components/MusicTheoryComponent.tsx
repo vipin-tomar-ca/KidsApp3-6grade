@@ -240,6 +240,7 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
           <Piano
             noteRange={{ first: firstNote, last: lastNote }}
             playNote={playNote}
+            stopNote={() => {}} // Required prop for react-piano
             disabled={false}
             keyboardShortcuts={keyboardShortcuts}
             className="piano-component"
