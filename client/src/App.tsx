@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Route, Router } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -34,35 +34,34 @@ function App() {
         <ChildSafetyWrapper>
           <Router>
             <Toaster />
-            <Routes>
-            <Route path="/" element={<GradeSelection />} />
-            <Route path="/grade-selection" element={<GradeSelection />} />
-            <Route path="/subjects" element={<SubjectSelection />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/math" element={<Math />} />
-            <Route path="/reading" element={<Reading />} />
-            <Route path="/english" element={<Reading />} />
-            <Route path="/science" element={<Science />} />
-            <Route path="/social-studies" element={<Science />} />
-            <Route path="/art" element={<Art />} />
-            <Route path="/music" element={<MusicPage />} />
-            <Route path="/olympiad" element={<OlympiadPage />} />
-            <Route path="/competition" element={<CompetitionPage />} />
-            <Route path="/workspace" element={<WorkspacePage />} />
-            <Route path="/content-browser" element={<ContentBrowser />} />
-            <Route path="/creative" element={<CreativeActivities />} />
-            <Route path="/multimedia-guide" element={<MultimediaGuide />} />
-            <Route path="/integrity-demo" element={<IntegrityDemo />} />
-            <Route path="/llm-demo" element={<LLMDemo />} />
-            <Route path="/firebase-demo" element={<FirebaseDemo />} />
-            <Route path="/library" element={<Library />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route path="/" component={GradeSelection} />
+            <Route path="/grade-selection" component={GradeSelection} />
+            <Route path="/subject-selection" component={SubjectSelection} />
+            <Route path="/subjects" component={SubjectSelection} />
+            <Route path="/home" component={Home} />
+            <Route path="/math" component={Math} />
+            <Route path="/reading" component={Reading} />
+            <Route path="/english" component={Reading} />
+            <Route path="/science" component={Science} />
+            <Route path="/social-studies" component={Science} />
+            <Route path="/art" component={Art} />
+            <Route path="/music" component={MusicPage} />
+            <Route path="/olympiad" component={OlympiadPage} />
+            <Route path="/competition" component={CompetitionPage} />
+            <Route path="/workspace" component={WorkspacePage} />
+            <Route path="/content-browser" component={ContentBrowser} />
+            <Route path="/creative" component={CreativeActivities} />
+            <Route path="/multimedia-guide" component={MultimediaGuide} />
+            <Route path="/integrity-demo" component={IntegrityDemo} />
+            <Route path="/llm-demo" component={LLMDemo} />
+            <Route path="/firebase-demo" component={FirebaseDemo} />
+            <Route path="/library" component={Library} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/settings" component={Settings} />
             {/* Fallback to 404 */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+            <Route component={NotFound} />
+          </Router>
           <ComplianceFooter />
-        </Router>
         </ChildSafetyWrapper>
       </TooltipProvider>
     </QueryClientProvider>

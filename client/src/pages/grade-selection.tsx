@@ -3,11 +3,11 @@ import { AccessibilityToolbar, SpeakableText } from "@/components/ui/accessibili
 import { GraduationCap, ArrowRight, Star, Play, Trophy } from "lucide-react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 
 export default function GradeSelection() {
-  const navigate = useNavigate();
+  const [location, navigate] = useLocation();
   const [selectedGrade, setSelectedGrade] = useState<number | null>(null);
 
   const grades = [
@@ -49,9 +49,9 @@ export default function GradeSelection() {
     setSelectedGrade(grade);
     setTimeout(() => {
       if (mode === 'competition') {
-        navigate('/competition', { state: { selectedGrade: grade } });
+        navigate('/competition');
       } else {
-        navigate('/subjects', { state: { selectedGrade: grade } });
+        navigate('/subject-selection');
       }
     }, 500);
   };

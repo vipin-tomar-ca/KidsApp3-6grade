@@ -184,24 +184,23 @@ const ArtPage: React.FC = () => {
 
   if (currentView === 'canvas') {
     return (
-      <div>
-        <div className="position-fixed top-0 start-0 p-3" style={{ zIndex: 1000 }}>
-          <Button
-            variant="light"
-            className="rounded-circle"
-            onClick={() => setCurrentView('menu')}
-          >
-            <ArrowLeft size={20} />
-          </Button>
-        </div>
-        <DigitalArtCanvas 
-          grade={selectedGrade}
-          lessonId={selectedLesson}
-          onProjectSave={(project) => {
-            console.log('Project saved:', project);
-            // You could show a success message or update UI here
-          }}
+      <div className="bg-kid-gradient min-h-screen">
+        <NavigationHeader 
+          title="Digital Art Canvas"
+          showBack={true}
+          onBack={() => setCurrentView('menu')}
+          theme="dark"
         />
+        <div className="pt-3">
+          <DigitalArtCanvas 
+            grade={selectedGrade}
+            lessonId={selectedLesson}
+            onProjectSave={(project) => {
+              console.log('Project saved:', project);
+              // You could show a success message or update UI here
+            }}
+          />
+        </div>
       </div>
     );
   }
@@ -211,7 +210,10 @@ const ArtPage: React.FC = () => {
       {/* Navigation Header */}
       <NavigationHeader 
         title="Art Studio"
+        showBack={true}
+        onBack={() => navigate('/subject-selection')}
         progress={60}
+        theme="dark"
       />
 
       <div className="max-w-md mx-auto px-4">
