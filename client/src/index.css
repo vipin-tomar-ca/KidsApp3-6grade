@@ -1,6 +1,196 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Kid-friendly custom CSS variables and animations */
+:root {
+  --kid-blue: #3B82F6;
+  --kid-green: #10B981;
+  --kid-yellow: #F59E0B;
+  --kid-pink: #EC4899;
+  --kid-purple: #8B5CF6;
+  --kid-orange: #F97316;
+  --kid-red: #EF4444;
+}
+
+/* Kid-friendly gradient backgrounds */
+.bg-kid-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-attachment: fixed;
+}
+
+.bg-math-gradient {
+  background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+}
+
+.bg-reading-gradient {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+}
+
+.bg-science-gradient {
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+}
+
+.bg-art-gradient {
+  background: linear-gradient(135deg, #EC4899 0%, #DB2777 100%);
+}
+
+/* Enhanced kid-friendly button animations */
+.kid-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.kid-button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.kid-button:active {
+  transform: translateY(0) scale(0.98);
+  transition: all 0.1s;
+}
+
+/* Playful animations */
+@keyframes bounce-gentle {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes wiggle {
+  0%, 7%, 14%, 21%, 28%, 35%, 42%, 49%, 56%, 63%, 70%, 77%, 84%, 91%, 98%, 100% {
+    transform: rotate(0deg);
+  }
+  2%, 9%, 16%, 23%, 30%, 37%, 44%, 51%, 58%, 65%, 72%, 79%, 86%, 93% {
+    transform: rotate(2deg);
+  }
+  4%, 11%, 18%, 25%, 32%, 39%, 46%, 53%, 60%, 67%, 74%, 81%, 88%, 95% {
+    transform: rotate(-2deg);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-bounce-gentle {
+  animation: bounce-gentle 2s infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-wiggle {
+  animation: wiggle 2s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 2s ease-in-out infinite;
+}
+
+/* Card and page transition animations */
+.grade-card-enter {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.grade-card-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.grade-card-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.grade-card-exit-active {
+  opacity: 0;
+  transform: translateY(-30px);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.subject-card-enter {
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+}
+
+.subject-card-enter-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.subject-card-exit {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.subject-card-exit-active {
+  opacity: 0;
+  transform: translateY(-30px) scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Accessibility enhancements */
+.focus-visible {
+  outline: 2px solid var(--kid-blue);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bg-kid-gradient {
+    background: #ffffff;
+    color: #000000;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-bounce-gentle,
+  .animate-float,
+  .animate-wiggle,
+  .animate-pulse-slow {
+    animation: none;
+  }
+  
+  .kid-button {
+    transition: none;
+  }
+}
+
+/* Mobile-first responsive design enhancements */
+@media (max-width: 768px) {
+  .kid-button {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+  }
+}
 
 :root {
   --background: hsl(0, 0%, 100%);
