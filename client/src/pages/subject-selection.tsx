@@ -80,6 +80,19 @@ export default function SubjectSelection() {
     }
   ];
 
+  const advancedSubjects = [
+    {
+      id: "olympiad",
+      title: "Olympiad Training",
+      description: "Challenge yourself with competition problems",
+      icon: Trophy,
+      color: "from-yellow-500 to-yellow-700",
+      bgColor: "bg-yellow-50",
+      textColor: "text-yellow-700",
+      activities: ["AMC 8 Math", "Science Olympiad", "Timed Challenges", "Problem Solving"]
+    }
+  ];
+
   const handleSubjectSelect = (subjectId: string) => {
     setSelectedSubject(subjectId);
     setTimeout(() => {
@@ -267,6 +280,77 @@ export default function SubjectSelection() {
                         >
                           <Play className="me-2" size={20} />
                           Get Creative!
+                        </BootstrapButton>
+                      </CardContent>
+                    </Card>
+                  </CSSTransition>
+                </Col>
+              ))}
+            </TransitionGroup>
+          </Row>
+        </section>
+
+        {/* Advanced Challenges */}
+        <section className="mb-8">
+          <SpeakableText text="Advanced challenge activities for competition preparation">
+            <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">🏆 Advanced Challenges</h2>
+          </SpeakableText>
+          
+          <Row className="g-4 max-w-2xl mx-auto">
+            <TransitionGroup component={null}>
+              {advancedSubjects.map((subject, index) => (
+                <Col key={subject.id} md={12} className="mb-4">
+                  <CSSTransition
+                    timeout={300}
+                    classNames="subject-card"
+                  >
+                    <Card 
+                      className={cn(
+                        "rounded-3xl shadow-xl cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl h-100",
+                        selectedSubject === subject.id ? "ring-4 ring-yellow-400 scale-105" : "",
+                        "animate-float"
+                      )}
+                      style={{ animationDelay: `${(index + 6) * 0.1}s` }}
+                      onClick={() => handleSubjectSelect(subject.id)}
+                    >
+                      <CardContent className="p-6">
+                        <div className={cn("rounded-2xl p-6 mb-4 bg-gradient-to-br", subject.color)}>
+                          <div className="flex items-center justify-between text-white mb-4">
+                            <subject.icon size={48} className="animate-bounce" />
+                            <div className="text-2xl">🌟</div>
+                          </div>
+                          <SpeakableText text={`${subject.title}: ${subject.description}`}>
+                            <h3 className="text-2xl font-bold text-white mb-2">{subject.title}</h3>
+                            <p className="text-white/90 text-lg">{subject.description}</p>
+                          </SpeakableText>
+                        </div>
+                        
+                        <div className="space-y-2 mb-4">
+                          {subject.activities.map((activity, actIndex) => (
+                            <SpeakableText key={actIndex} text={activity}>
+                              <div className={cn("rounded-xl p-3 text-sm font-semibold", subject.bgColor, subject.textColor)}>
+                                • {activity}
+                              </div>
+                            </SpeakableText>
+                          ))}
+                        </div>
+                        
+                        <BootstrapButton 
+                          className={cn(
+                            "w-100 py-3 font-weight-bold rounded-3 border-0 text-white d-flex align-items-center justify-content-center",
+                            "kid-button transition-all"
+                          )}
+                          style={{ 
+                            background: `linear-gradient(135deg, ${subject.color.split(' ')[1]} 0%, ${subject.color.split(' ')[3]} 100%)`,
+                            fontSize: '1.1rem'
+                          }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleSubjectSelect(subject.id);
+                          }}
+                        >
+                          <Trophy className="me-2" size={20} />
+                          Start Training!
                         </BootstrapButton>
                       </CardContent>
                     </Card>

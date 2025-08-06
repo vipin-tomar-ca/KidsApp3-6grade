@@ -15,6 +15,7 @@ import Settings from "@/pages/settings";
 import GradeSelection from "@/pages/grade-selection";
 import SubjectSelection from "@/pages/subject-selection";
 import MusicPage from "@/pages/music";
+import OlympiadPage from "@/pages/olympiad";
 import WorkspacePage from "@/pages/workspace";
 import ContentBrowser from "@/pages/content-browser";
 
@@ -36,6 +37,7 @@ function App() {
             <Route path="/social-studies" element={<Science />} />
             <Route path="/art" element={<Art />} />
             <Route path="/music" element={<MusicPage />} />
+            <Route path="/olympiad" element={<OlympiadPage />} />
             <Route path="/workspace" element={<WorkspacePage />} />
             <Route path="/content-browser" element={<ContentBrowser />} />
             <Route path="/library" element={<Library />} />

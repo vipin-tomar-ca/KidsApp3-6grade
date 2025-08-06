@@ -56,9 +56,22 @@ Preferred communication style: Simple, everyday language.
 - **Features**: Real-time drawing feedback, project saving, tutorial progression tracking
 - **Storage**: localforage for artwork projects and learning progress
 
+### Olympiad Preparation Module
+- **Framework**: React components with TypeScript and react-timer-hook integration
+- **Competition Sources**: AMC 8 (American Mathematics Competitions) and NSO (National Science Olympiad)
+- **Problem Types**: Multiple-choice, short-answer, and numerical response questions
+- **Timer Component**: react-timer-hook for authentic competition simulation with time pressure
+- **Form Management**: react-hook-form for answer input validation and submission
+- **API Integration**: axios for sourcing authentic competition problems from MAA archives
+- **Progress Tracking**: localforage for offline storage of attempts, scores, and user analytics
+- **Immediate Feedback**: Real-time answer checking with detailed explanations
+- **Features**: Timed challenges, problem navigation, performance analytics, achievement system
+
 ### Educational Standards Alignment
 - **Music**: National Core Arts Standards (MU:Re7.1.Ka, MU:Pr4.2.Ka, etc.)
-- **Art**: National Visual Arts Standards (VA:Cr1.1.Ka, VA:Cr2.1.2a, etc.)  
+- **Art**: National Visual Arts Standards (VA:Cr1.1.Ka, VA:Cr2.1.2a, etc.)
+- **Math Olympiad**: AMC 8 problem structures adapted for elementary grades (3-6)
+- **Science Olympiad**: NSO content areas covering physics, chemistry, biology, earth science
 - **Pedagogy**: NAEYC play-based learning principles integration
 - **Age Appropriateness**: Content scaled for grades 3-6 development levels
 
@@ -72,4 +85,5 @@ Preferred communication style: Simple, everyday language.
 - **Build Tools**: Vite for fast development and optimized production builds
 - **Development**: Replit-specific plugins for development environment integration
 - **Creative Tools**: Tone.js, react-piano, react-sketch-canvas, react-audio-player, VexFlow
-- **Storage**: localforage for offline content and user creations
+- **Competition Tools**: react-timer-hook for timed challenges, axios for problem sourcing
+- **Storage**: localforage for offline content, user creations, and olympiad progress
