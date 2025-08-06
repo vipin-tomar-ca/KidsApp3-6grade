@@ -267,6 +267,43 @@ export default function SubjectSelection() {
           </Row>
         </section>
 
+        {/* Student Workspace Section */}
+        <section className="mb-8">
+          <div className="max-w-4xl mx-auto">
+            <Card className="rounded-3xl shadow-xl bg-gradient-to-r from-indigo-500 to-purple-600 cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+                  onClick={() => navigate('/workspace')}>
+              <CardContent className="p-6 text-white">
+                <div className="text-center">
+                  <div className="text-6xl mb-4">📝</div>
+                  <SpeakableText text="Student Workspace - Your digital notebook for assignments, math problems, and creative projects">
+                    <h2 className="text-3xl font-bold mb-3">Student Workspace</h2>
+                    <p className="text-xl text-white/90 mb-4">
+                      Your digital notebook for assignments, math problems, and creative projects!
+                    </p>
+                  </SpeakableText>
+                  <div className="d-flex justify-content-center flex-wrap gap-3 mb-4">
+                    <span className="badge bg-white text-indigo-600 rounded-pill px-3 py-2">✏️ Rich Text Editor</span>
+                    <span className="badge bg-white text-indigo-600 rounded-pill px-3 py-2">🔢 Math Equations</span>
+                    <span className="badge bg-white text-indigo-600 rounded-pill px-3 py-2">🎨 Drawing Canvas</span>
+                    <span className="badge bg-white text-indigo-600 rounded-pill px-3 py-2">💾 Auto-Save</span>
+                  </div>
+                  <BootstrapButton 
+                    className="btn-light text-indigo-600 fw-bold py-3 px-4 rounded-3 d-flex align-items-center justify-content-center mx-auto"
+                    style={{ maxWidth: '200px' }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate('/workspace');
+                    }}
+                  >
+                    <Play className="me-2" size={20} />
+                    Open Workspace
+                  </BootstrapButton>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
         {/* Fun Fact */}
         <div className="max-w-2xl mx-auto">
           <Card className="rounded-3xl shadow-lg bg-gradient-to-r from-yellow-100 to-orange-100">

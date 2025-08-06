@@ -3,6 +3,47 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Quill Editor Styles */
+.ql-toolbar {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.ql-container {
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border: 1px solid #e5e7eb;
+  border-top: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+}
+
+.ql-editor {
+  min-height: 200px;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+.ql-editor.ql-blank::before {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* Kid-friendly Quill customizations */
+.ql-toolbar .ql-formats {
+  margin-right: 15px;
+}
+
+.ql-toolbar button {
+  border-radius: 6px;
+  margin: 2px;
+}
+
+.ql-toolbar button:hover {
+  background-color: #f3f4f6;
+}
+
 /* Kid-friendly custom CSS variables and animations */
 :root {
   --kid-blue: #3B82F6;
