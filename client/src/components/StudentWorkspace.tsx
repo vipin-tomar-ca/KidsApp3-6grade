@@ -28,6 +28,7 @@ import { Container, Row, Col, Alert, Button as BootstrapButton, Modal, Form } fr
 import { cn } from "@/lib/utils";
 import IntegrityMonitor, { useIntegrityMonitoring } from './IntegrityMonitor';
 import QuizIntegrityWrapper from './QuizIntegrityWrapper';
+import HintAssistant from './HintAssistant';
 import { useChildSafety } from '@/hooks/useChildSafety';
 
 interface WorkspaceData {
@@ -582,6 +583,21 @@ const StudentWorkspace: React.FC = () => {
                 </div>
               </CardContent>
             </Card>
+
+            {/* AI Hint Assistant */}
+            <HintAssistant
+              userId={currentUser?.id || 'demo-student'}
+              subject={currentSubject as 'math' | 'english' | 'music' | 'art' | 'science'}
+              grade={currentGrade}
+              context={`Student is working on ${activeTab} activity in the workspace`}
+              userInput={textContent || mathInput || 'drawing activity'}
+              activityType={activityType}
+              onHintGenerated={(hint) => {
+                // Show hint in feedback system
+                showFeedback('info', `AI Hint: ${hint.hint}`);
+              }}
+              className="mb-4"
+            />
 
             {/* Achievement Badge */}
             <Card className="rounded-4 shadow-lg bg-gradient-to-r from-yellow-400 to-orange-500">

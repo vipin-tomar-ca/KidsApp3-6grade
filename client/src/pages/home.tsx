@@ -76,6 +76,14 @@ export default function Home() {
       bgColor: "bg-gradient-to-br from-orange-500 to-orange-700",
       path: "/art",
     },
+    {
+      name: "AI Hints",
+      subject: "ai-hints", 
+      description: "Smart Learning Help",
+      icon: Shield,
+      bgColor: "bg-gradient-to-br from-indigo-500 to-indigo-700",
+      path: "/llm-demo",
+    },
   ];
 
   return (
