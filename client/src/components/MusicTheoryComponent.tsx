@@ -26,6 +26,29 @@ interface MusicTheoryProps {
   onLessonComplete?: (lessonId: string, score: number) => void;
 }
 
+interface MusicSkillLevel {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  color: string;
+  requiredScore: number;
+  lessons: EnhancedMusicLesson[];
+}
+
+interface EnhancedMusicLesson {
+  id: string;
+  title: string;
+  description: string;
+  level: 'beginner' | 'intermediate' | 'advanced' | 'expert';
+  duration: number;
+  concepts: string[];
+  exercises: MusicExercise[];
+  completed: boolean;
+  score: number;
+  unlocked: boolean;
+}
+
 interface RhythmPattern {
   beats: boolean[];
   name: string;
@@ -36,20 +59,22 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
   grade, 
   onLessonComplete 
 }) => {
-  // State management
-  const [lessons, setLessons] = useState<MusicLesson[]>([]);
-  const [currentLesson, setCurrentLesson] = useState<MusicLesson | null>(null);
+  // Enhanced state management
+  const [skillLevels, setSkillLevels] = useState<MusicSkillLevel[]>([]);
+  const [currentSkillLevel, setCurrentSkillLevel] = useState<MusicSkillLevel | null>(null);
+  const [currentLesson, setCurrentLesson] = useState<EnhancedMusicLesson | null>(null);
   const [currentExercise, setCurrentExercise] = useState<MusicExercise | null>(null);
   const [loading, setLoading] = useState(true);
   const [playing, setPlaying] = useState(false);
   const [currentAudio, setCurrentAudio] = useState<string | null>(null);
-  const [score, setScore] = useState(0);
+  const [overallProgress, setOverallProgress] = useState(0);
   const [rhythmPattern, setRhythmPattern] = useState<boolean[]>([]);
   const [userRhythmInput, setUserRhythmInput] = useState<boolean[]>([]);
   const [metronomeActive, setMetronomeActive] = useState(false);
   const [bpm, setBpm] = useState(60);
   const [exerciseScore, setExerciseScore] = useState(0);
   const [completedExercises, setCompletedExercises] = useState<Set<string>>(new Set());
+  const [userLevel, setUserLevel] = useState<'beginner' | 'intermediate' | 'advanced' | 'expert'>('beginner');
 
   // Audio and timing refs
   const audioRef = useRef<ReactAudioPlayer>(null);
@@ -66,7 +91,7 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
   });
 
   useEffect(() => {
-    loadMusicLessons();
+    initializeMusicTheory();
     setupAudioContext();
     return () => {
       if (rhythmTimerRef.current) {
@@ -90,18 +115,54 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
     }
   };
 
-  const loadMusicLessons = async () => {
-    setLoading(true);
-    try {
-      const musicLessons = await musicEducationService.getBasicNotesLessons(grade);
-      setLessons(musicLessons);
-      if (musicLessons.length > 0) {
-        setCurrentLesson(musicLessons[0]);
-      }
-    } catch (error) {
-      console.error('Failed to load music lessons:', error);
-    } finally {
-      setLoading(false);
+  // Progression tracking functions
+  const calculateOverallProgress = () => {
+    if (!currentSkillLevel) return 0;
+    const completedLessons = currentSkillLevel.lessons.filter(lesson => lesson.completed).length;
+    const totalLessons = currentSkillLevel.lessons.length;
+    return totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
+  };
+
+  const handleLessonComplete = (lessonId: string, score: number) => {
+    setSkillLevels(prev => prev.map(level => ({
+      ...level,
+      lessons: level.lessons.map(lesson => 
+        lesson.id === lessonId 
+          ? { ...lesson, completed: true, score }
+          : lesson
+      )
+    })));
+
+    // Check if user can advance to next level
+    checkLevelProgression(score);
+  };
+
+  const checkLevelProgression = (currentScore: number) => {
+    const totalScore = skillLevels.reduce((sum, level) => 
+      sum + level.lessons.reduce((lessonSum, lesson) => lessonSum + lesson.score, 0), 0
+    ) + currentScore;
+
+    setOverallProgress(totalScore);
+
+    // Unlock next levels based on score
+    const nextLevelIndex = skillLevels.findIndex(level => level.requiredScore > totalScore);
+    if (nextLevelIndex > 0) {
+      setSkillLevels(prev => prev.map((level, index) => ({
+        ...level,
+        lessons: level.lessons.map(lesson => ({
+          ...lesson,
+          unlocked: index <= nextLevelIndex || lesson.unlocked
+        }))
+      })));
+    }
+  };
+
+  const selectSkillLevel = (levelId: string) => {
+    const level = skillLevels.find(l => l.id === levelId);
+    if (level) {
+      setCurrentSkillLevel(level);
+      setCurrentLesson(null);
+      setUserLevel(level.id as any);
     }
   };
 
