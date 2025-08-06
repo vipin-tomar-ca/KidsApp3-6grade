@@ -417,3 +417,71 @@
     animation: none;
   }
 }
+
+/* High Contrast Mode Enhancement */
+.high-contrast {
+  filter: contrast(1.5) brightness(1.2);
+}
+
+.high-contrast button {
+  border: 2px solid currentColor !important;
+}
+
+.high-contrast .card {
+  border: 2px solid #000 !important;
+  background: #fff !important;
+}
+
+.high-contrast .text-muted {
+  color: #000 !important;
+}
+
+.high-contrast .bg-light {
+  background: #fff !important;
+  border: 1px solid #000 !important;
+}
+
+/* Educational Content Styling */
+.lesson-content h2, 
+.lesson-content h3, 
+.lesson-content h4 {
+  color: hsl(var(--primary));
+  margin: 1.5rem 0 1rem 0;
+}
+
+.lesson-content .example {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid hsl(var(--primary));
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+}
+
+.lesson-content p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+
+.lesson-content .lifecycle-stage {
+  background: #f8f9fa;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  border: 2px dashed #dee2e6;
+}
+
+.lesson-content .story {
+  background: linear-gradient(135deg, #fff3cd 0%, #fef9e7 100%);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border: 1px solid #ffc107;
+}
+
+.lesson-content .comprehension {
+  background: linear-gradient(135deg, #d1ecf1 0%, #e7f4f6 100%);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  border: 1px solid #17a2b8;
+}

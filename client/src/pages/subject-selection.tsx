@@ -83,7 +83,17 @@ export default function SubjectSelection() {
   const handleSubjectSelect = (subjectId: string) => {
     setSelectedSubject(subjectId);
     setTimeout(() => {
-      navigate(`/${subjectId}`, { state: { selectedGrade, selectedSubject: subjectId } });
+      // Navigate to content browser for core subjects, or original pages for creative subjects
+      if (['math', 'english', 'science', 'social-studies'].includes(subjectId)) {
+        navigate('/content-browser', { 
+          state: { 
+            grade: selectedGrade, 
+            subject: subjectId === 'english' ? 'english' : subjectId === 'social-studies' ? 'social-studies' : subjectId
+          } 
+        });
+      } else {
+        navigate(`/${subjectId}`, { state: { selectedGrade, selectedSubject: subjectId } });
+      }
     }, 500);
   };
 
