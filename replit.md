@@ -8,6 +8,24 @@ This is a modern educational platform designed specifically for kids, featuring 
 
 Preferred communication style: Simple, everyday language.
 
+## Child Safety & Compliance Features
+
+### COPPA & GDPR-K Compliance (Ages 8-11)
+- **Anonymous User System**: UUID-based identification with no PII collection
+- **Parental Authentication**: bcryptjs-secured password protection with localforage storage
+- **Time Management**: react-timer-hook integration for daily limits and session tracking
+- **Content Moderation**: Educational whitelist filtering for Khan Academy, CK-12, and other sources
+- **Data Rights**: Export, delete, and audit capabilities for all stored learning data
+- **Restricted Hours**: Configurable time windows for learning access control
+- **Safety Monitoring**: Real-time content filtering and inappropriate material blocking
+
+### Privacy Protection Implementation
+- **No Personal Data**: Zero collection of names, emails, addresses, or contact information
+- **Local Storage Only**: All data stored via localforage on user's device
+- **Anonymized Analytics**: Learning progress tracked without identity correlation
+- **Parental Controls**: Password-protected dashboard for monitoring and configuration
+- **Compliance Reporting**: Automated generation of privacy-compliant activity reports
+
 ## System Architecture
 
 ### Frontend Architecture

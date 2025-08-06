@@ -18,14 +18,17 @@ import MusicPage from "@/pages/music";
 import OlympiadPage from "@/pages/olympiad";
 import WorkspacePage from "@/pages/workspace";
 import ContentBrowser from "@/pages/content-browser";
+import ChildSafetyWrapper from "@/components/ChildSafetyWrapper";
+import ComplianceFooter from "@/components/ComplianceFooter";
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Router>
-          <Toaster />
-          <Routes>
+        <ChildSafetyWrapper>
+          <Router>
+            <Toaster />
+            <Routes>
             <Route path="/" element={<GradeSelection />} />
             <Route path="/grade-selection" element={<GradeSelection />} />
             <Route path="/subjects" element={<SubjectSelection />} />
@@ -46,7 +49,9 @@ function App() {
             {/* Fallback to 404 */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <ComplianceFooter />
         </Router>
+        </ChildSafetyWrapper>
       </TooltipProvider>
     </QueryClientProvider>
   );
