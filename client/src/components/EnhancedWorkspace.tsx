@@ -389,7 +389,7 @@ export const EnhancedWorkspace: React.FC<EnhancedWorkspaceProps> = ({
                   <div>
                     <h5 className="font-medium">More Examples:</h5>
                     <ul className="space-y-1 mt-2">
-                      <li><code>\sum_{i=1}^n i</code> → <InlineMath math="\sum_{i=1}^n i" /></li>
+                      <li><code>\sum_&#123;i=1&#125;^n i</code> → <InlineMath math="\sum_{i=1}^n i" /></li>
                       <li><code>\int_0^1 x dx</code> → <InlineMath math="\int_0^1 x dx" /></li>
                       <li><code>\alpha + \beta = \gamma</code> → <InlineMath math="\alpha + \beta = \gamma" /></li>
                     </ul>
