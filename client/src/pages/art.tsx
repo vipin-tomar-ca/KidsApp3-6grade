@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { Palette, Paintbrush, Camera, Award, ArrowLeft, Play, Pause } from 'lucide-react';
-import { useLocation } from 'wouter';
+import { useLocation, useNavigate } from 'react-router-dom';
 import DigitalArtCanvas from '@/components/DigitalArtCanvas';
 
 interface ArtPageState {
@@ -10,7 +10,8 @@ interface ArtPageState {
 }
 
 const ArtPage: React.FC = () => {
-  const [, setLocation] = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [currentView, setCurrentView] = useState<'menu' | 'canvas'>('menu');
   const [selectedLesson, setSelectedLesson] = useState<string | undefined>(undefined);
   
@@ -221,7 +222,7 @@ const ArtPage: React.FC = () => {
             variant="light"
             size="lg"
             className="rounded-4 fw-bold px-4"
-            onClick={() => setLocation('/subjects')}
+            onClick={() => navigate('/subjects')}
           >
             Back to Subjects
           </Button>

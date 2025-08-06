@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { Music, Play, Pause, Volume2, Award, ArrowLeft } from 'lucide-react';
-import { useLocation } from 'wouter';
+import { useLocation, useNavigate } from 'react-router-dom';
 import MusicTheoryComponent from '@/components/MusicTheoryComponent';
 
 interface MusicPageState {
@@ -10,7 +10,7 @@ interface MusicPageState {
 }
 
 const MusicPage: React.FC = () => {
-  const [, setLocation] = useLocation();
+  const navigate = useNavigate();
   const [currentView, setCurrentView] = useState<'menu' | 'theory'>('menu');
   const [playing, setPlaying] = useState<string | null>(null);
   
@@ -194,7 +194,7 @@ const MusicPage: React.FC = () => {
             variant="light"
             size="lg"
             className="rounded-4 fw-bold px-4"
-            onClick={() => setLocation('/subjects')}
+            onClick={() => navigate('/subjects')}
           >
             Back to Subjects
           </Button>

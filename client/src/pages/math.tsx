@@ -1,10 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BottomNavigation } from "@/components/ui/bottom-navigation";
 import { Calculator, ArrowLeft, Play, Trophy } from "lucide-react";
-import { Link } from "wouter";
+import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 export default function Math() {
+  const navigate = useNavigate();
+  
+  const handleBackToSubjects = () => {
+    navigate('/subjects');
+  };
+  
   const mathActivities = [
     {
       id: 1,
@@ -50,11 +56,12 @@ export default function Math() {
       <header className="bg-white shadow-lg rounded-b-3xl p-4 mb-6">
         <div className="flex items-center justify-between max-w-md mx-auto">
           <div className="flex items-center space-x-3">
-            <Link href="/">
-              <button className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors">
-                <ArrowLeft size={20} />
-              </button>
-            </Link>
+            <button 
+              onClick={handleBackToSubjects}
+              className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
+            >
+              <ArrowLeft size={20} />
+            </button>
             <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center animate-pulse-slow">
               <Calculator className="text-white" size={24} />
             </div>
