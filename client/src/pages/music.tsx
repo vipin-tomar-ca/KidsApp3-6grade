@@ -137,22 +137,21 @@ const MusicPage: React.FC = () => {
 
   if (currentView === 'theory') {
     return (
-      <div>
-        <div className="position-fixed top-0 start-0 p-3 z-50">
-          <Button
-            variant="light"
-            className="rounded-circle"
-            onClick={() => setCurrentView('menu')}
-          >
-            <ArrowLeft size={20} />
-          </Button>
-        </div>
-        <MusicTheoryComponent 
-          grade={selectedGrade}
-          onLessonComplete={(lessonId, score) => {
-            console.log(`Lesson ${lessonId} completed with score ${score}`);
-          }}
+      <div className="bg-kid-gradient min-vh-100">
+        <NavigationHeader 
+          title="Interactive Music Theory"
+          showBack={true}
+          onBack={() => setCurrentView('menu')}
+          theme="dark"
         />
+        <div className="pt-3">
+          <MusicTheoryComponent 
+            grade={selectedGrade}
+            onLessonComplete={(lessonId, score) => {
+              console.log(`Lesson ${lessonId} completed with score ${score}`);
+            }}
+          />
+        </div>
       </div>
     );
   }
@@ -162,10 +161,13 @@ const MusicPage: React.FC = () => {
       <div className="bg-kid-gradient min-vh-100">
         <NavigationHeader 
           title="Music Mastery Path"
+          showBack={true}
+          onBack={() => navigate('/subject-selection')}
           progress={Math.round((totalScore / 500) * 100)}
+          theme="dark"
         />
 
-        <Container className="py-4">
+        <Container className="py-3">
           {/* Progress Overview */}
           <Alert variant="info" className="rounded-4 mb-4 bg-white border-0 shadow-sm">
             <div className="d-flex align-items-center justify-content-between">
@@ -338,14 +340,20 @@ const MusicPage: React.FC = () => {
 
   return (
     <div className="bg-kid-gradient min-vh-100">
-      <Container className="py-5">
+      <NavigationHeader 
+        title="Music Studio"
+        showBack={true}
+        onBack={() => navigate('/subject-selection')}
+        theme="dark"
+      />
+      <Container className="py-3">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center text-white mb-5"
+          className="text-center text-white mb-4"
         >
-          <h1 className="display-3 fw-bold mb-3">
-            <Music className="me-3" size={60} />
+          <h1 className="display-4 fw-bold mb-3">
+            <Music className="me-3" size={50} />
             Music Studio!
           </h1>
           <p className="lead">
