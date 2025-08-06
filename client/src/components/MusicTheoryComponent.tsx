@@ -59,22 +59,20 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
   grade, 
   onLessonComplete 
 }) => {
-  // Enhanced state management
-  const [skillLevels, setSkillLevels] = useState<MusicSkillLevel[]>([]);
-  const [currentSkillLevel, setCurrentSkillLevel] = useState<MusicSkillLevel | null>(null);
-  const [currentLesson, setCurrentLesson] = useState<EnhancedMusicLesson | null>(null);
+  // Simplified state management for working component
+  const [lessons, setLessons] = useState<MusicLesson[]>([]);
+  const [currentLesson, setCurrentLesson] = useState<MusicLesson | null>(null);
   const [currentExercise, setCurrentExercise] = useState<MusicExercise | null>(null);
   const [loading, setLoading] = useState(true);
   const [playing, setPlaying] = useState(false);
   const [currentAudio, setCurrentAudio] = useState<string | null>(null);
-  const [overallProgress, setOverallProgress] = useState(0);
+  const [score, setScore] = useState(0);
   const [rhythmPattern, setRhythmPattern] = useState<boolean[]>([]);
   const [userRhythmInput, setUserRhythmInput] = useState<boolean[]>([]);
   const [metronomeActive, setMetronomeActive] = useState(false);
   const [bpm, setBpm] = useState(60);
   const [exerciseScore, setExerciseScore] = useState(0);
   const [completedExercises, setCompletedExercises] = useState<Set<string>>(new Set());
-  const [userLevel, setUserLevel] = useState<'beginner' | 'intermediate' | 'advanced' | 'expert'>('beginner');
 
   // Audio and timing refs
   const audioRef = useRef<ReactAudioPlayer>(null);
@@ -115,87 +113,109 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
     }
   };
 
-  // Progression tracking functions
-  const calculateOverallProgress = () => {
-    if (!currentSkillLevel) return 0;
-    const completedLessons = currentSkillLevel.lessons.filter(lesson => lesson.completed).length;
-    const totalLessons = currentSkillLevel.lessons.length;
-    return totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
-  };
-
-  const handleLessonComplete = (lessonId: string, score: number) => {
-    setSkillLevels(prev => prev.map(level => ({
-      ...level,
-      lessons: level.lessons.map(lesson => 
-        lesson.id === lessonId 
-          ? { ...lesson, completed: true, score }
-          : lesson
-      )
-    })));
-
-    // Check if user can advance to next level
-    checkLevelProgression(score);
-  };
-
-  const checkLevelProgression = (currentScore: number) => {
-    const totalScore = skillLevels.reduce((sum, level) => 
-      sum + level.lessons.reduce((lessonSum, lesson) => lessonSum + lesson.score, 0), 0
-    ) + currentScore;
-
-    setOverallProgress(totalScore);
-
-    // Unlock next levels based on score
-    const nextLevelIndex = skillLevels.findIndex(level => level.requiredScore > totalScore);
-    if (nextLevelIndex > 0) {
-      setSkillLevels(prev => prev.map((level, index) => ({
-        ...level,
-        lessons: level.lessons.map(lesson => ({
-          ...lesson,
-          unlocked: index <= nextLevelIndex || lesson.unlocked
-        }))
-      })));
-    }
-  };
-
-  const selectSkillLevel = (levelId: string) => {
-    const level = skillLevels.find(l => l.id === levelId);
-    if (level) {
-      setCurrentSkillLevel(level);
-      setCurrentLesson(null);
-      setUserLevel(level.id as any);
+  const completeExercise = (exerciseId: string, userScore: number) => {
+    setScore(prev => prev + userScore);
+    setCompletedExercises(prev => new Set([...prev, exerciseId]));
+    
+    // Check if lesson is completed
+    if (currentLesson) {
+      const allExercisesCompleted = currentLesson.exercises.every(
+        exercise => completedExercises.has(exercise.id) || exercise.id === exerciseId
+      );
+      
+      if (allExercisesCompleted && onLessonComplete) {
+        onLessonComplete(currentLesson.id, score + userScore);
+      }
     }
   };
 
   const loadMusicLessons = async () => {
     setLoading(true);
     try {
-      // Since the new progression system doesn't use the external API,
-      // we'll initialize with empty lessons or basic demo lessons
-      const basicLessons: MusicLesson[] = [
+      // Create enhanced music theory lessons with progression
+      const enhancedLessons: MusicLesson[] = [
         {
-          id: 'demo-lesson',
-          title: 'Welcome to Music Theory',
-          description: 'A sample lesson to get you started',
-          grade: grade,
-          category: 'theory',
+          id: 'notes-basics',
+          title: 'Musical Notes & Sounds',
+          description: 'Learn about different musical notes and their sounds',
+          grade: Math.min(grade, 6) as 3 | 4 | 5 | 6,
+          category: 'notes' as 'beginner' | 'intermediate' | 'advanced',
           difficulty: 1,
           duration: 10,
           exercises: [
             {
-              id: 'welcome-exercise',
-              title: 'Welcome Exercise',
-              description: 'A simple welcome exercise',
+              id: 'note-recognition-1',
+              title: 'Note Name Game',
               type: 'listening',
               difficulty: 1,
-              instructions: 'Welcome to music theory!',
-              data: {}
+              instructions: 'Listen to each note and select its name',
+              data: { notes: ['C', 'D', 'E', 'F', 'G', 'A', 'B'] }
+            }
+          ]
+        },
+        {
+          id: 'rhythm-basics',
+          title: 'Clap Along - Basic Rhythm',
+          description: 'Feel the beat and clap simple rhythms',
+          grade: Math.min(grade, 6) as 3 | 4 | 5 | 6,
+          category: 'rhythm' as 'beginner' | 'intermediate' | 'advanced',
+          difficulty: 1,
+          duration: 15,
+          exercises: [
+            {
+              id: 'clap-rhythm-1',
+              title: 'Clap the Beat',
+              type: 'rhythm',
+              difficulty: 1,
+              instructions: 'Clap along with the steady beat',
+              data: { pattern: [true, false, true, false] }
+            }
+          ]
+        },
+        {
+          id: 'piano-intro',
+          title: 'Piano Keys Adventure',
+          description: 'Explore the piano keyboard and play your first notes',
+          grade: Math.min(grade, 6) as 3 | 4 | 5 | 6,
+          category: 'piano' as 'beginner' | 'intermediate' | 'advanced',
+          difficulty: 2,
+          duration: 12,
+          exercises: [
+            {
+              id: 'piano-play-1',
+              title: 'Find Middle C',
+              type: 'piano',
+              difficulty: 1,
+              instructions: 'Click on the middle C key',
+              data: { targetNote: 'C4' }
+            }
+          ]
+        },
+        {
+          id: 'scales-intro',
+          title: 'Musical Scales',
+          description: 'Learn about major and minor scales',
+          grade: Math.min(grade, 6) as 3 | 4 | 5 | 6,
+          category: 'scales' as 'beginner' | 'intermediate' | 'advanced',
+          difficulty: 3,
+          duration: 18,
+          exercises: [
+            {
+              id: 'scale-play-1',
+              title: 'Play C Major Scale',
+              type: 'piano',
+              difficulty: 2,
+              instructions: 'Play each note of the C major scale in order',
+              data: { scale: ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5'] }
             }
           ]
         }
       ];
       
-      // For now, we'll use the progression system from the music page
-      // instead of the old lesson system
+      setLessons(enhancedLessons);
+      if (enhancedLessons.length > 0) {
+        setCurrentLesson(enhancedLessons[0]);
+      }
       setLoading(false);
     } catch (error) {
       console.error('Failed to load music lessons:', error);
@@ -517,7 +537,7 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
               <div className="d-flex gap-2 flex-wrap">
                 <Badge bg="primary">Grade {currentLesson.grade}</Badge>
                 <Badge bg="info">{currentLesson.category}</Badge>
-                <Badge bg="success">{currentLesson.difficulty}</Badge>
+                <Badge bg="success">Level {currentLesson.difficulty}</Badge>
                 <Badge bg="warning">
                   <Clock size={12} className="me-1" />
                   {currentLesson.duration} min
@@ -532,47 +552,46 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
           </div>
         </CardHeader>
         <CardContent>
-          {/* Learning Objectives */}
-          <Alert variant="success" className="rounded-3 mb-4">
-            <div className="fw-bold mb-2">What You'll Learn:</div>
-            <ul className="mb-0">
-              {currentLesson.objectives.map((objective, index) => (
-                <li key={index}>{objective}</li>
-              ))}
-            </ul>
+          {/* Lesson Description */}
+          <Alert variant="info" className="rounded-3 mb-4">
+            <div className="fw-bold mb-2">Lesson Overview:</div>
+            <p className="mb-0">{currentLesson.description}</p>
           </Alert>
 
-          {/* Lesson Content */}
-          <div 
-            className="lesson-content mb-4"
-            dangerouslySetInnerHTML={{ __html: currentLesson.content }}
-          />
-
-          {/* Audio Resources */}
-          {currentLesson.audioFiles.length > 0 && (
-            <div className="audio-section mb-4">
-              <h6 className="fw-bold">Audio Examples</h6>
-              {currentLesson.audioFiles.map((audio) => (
-                <div key={audio.id} className="audio-item mb-3 p-3 bg-light rounded-3">
-                  <div className="d-flex justify-content-between align-items-center mb-2">
-                    <strong>{audio.title}</strong>
-                    <Badge bg="secondary">{audio.type}</Badge>
-                  </div>
-                  {audio.description && (
-                    <p className="text-muted small mb-2">{audio.description}</p>
-                  )}
-                  <ReactAudioPlayer
-                    ref={audioRef}
-                    src={audio.url}
-                    controls
-                    className="w-100"
-                    onPlay={() => setPlaying(true)}
-                    onPause={() => setPlaying(false)}
-                  />
-                </div>
+          {/* Exercise Section */}
+          <div className="exercises-section">
+            <h6 className="fw-bold mb-3">Interactive Exercises</h6>
+            <Row className="g-3">
+              {currentLesson.exercises.map((exercise) => (
+                <Col key={exercise.id} md={6}>
+                  <Card className="h-100 border-0 shadow-sm">
+                    <Card.Body className="text-center p-3">
+                      <div className="mb-2">
+                        {exercise.type === 'piano' ? '🎹' : 
+                         exercise.type === 'rhythm' ? '🥁' : 
+                         exercise.type === 'listening' ? '👂' : '🎵'}
+                      </div>
+                      <h6 className="fw-bold">{exercise.title}</h6>
+                      <p className="small text-muted">{exercise.instructions}</p>
+                      <Badge bg="primary" className="mb-2">
+                        Difficulty: {exercise.difficulty}/3
+                      </Badge>
+                      <div>
+                        <Button 
+                          size="sm" 
+                          onClick={() => startRhythmGame(exercise)}
+                          className="rounded-pill"
+                        >
+                          <Play size={14} className="me-1" />
+                          Start Exercise
+                        </Button>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
               ))}
-            </div>
-          )}
+            </Row>
+          </div>
         </CardContent>
       </Card>
     );
