@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from "@/components/ui/button";
-import { Play, Pause, Square } from "lucide-react";
+import { Play, Pause, Square, VolumeX } from "lucide-react";
+import { AudioFallbackService } from '@/utils/audioFallback';
 
 interface SpeakableTextProps {
   text: string;
@@ -22,13 +23,27 @@ const SpeakableText: React.FC<SpeakableTextProps> = ({
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   useEffect(() => {
-    // Check if speech synthesis is supported
-    setIsSupported('speechSynthesis' in window);
+    // Check if speech synthesis is supported with fallback service
+    const checkSupport = async () => {
+      const basicSupport = AudioFallbackService.checkAudioSupport();
+      if (basicSupport) {
+        const fullSupport = await AudioFallbackService.testAudioCapability();
+        setIsSupported(fullSupport);
+      } else {
+        setIsSupported(false);
+      }
+    };
+
+    checkSupport();
     
     // Cleanup on unmount
     return () => {
       if (utteranceRef.current) {
-        window.speechSynthesis.cancel();
+        try {
+          window.speechSynthesis.cancel();
+        } catch (error) {
+          console.warn('Cleanup error:', error);
+        }
       }
     };
   }, []);
@@ -84,6 +99,10 @@ const SpeakableText: React.FC<SpeakableTextProps> = ({
     } catch (error) {
       console.error('Speech synthesis error:', error);
       setIsPlaying(false);
+      // Show user-friendly error message for audio issues
+      if (typeof window !== 'undefined') {
+        console.warn('Audio feature temporarily unavailable. Please check browser permissions or try refreshing.');
+      }
     }
   };
 
@@ -102,7 +121,24 @@ const SpeakableText: React.FC<SpeakableTextProps> = ({
   };
 
   if (!isSupported) {
-    return <div className={className}>{children}</div>;
+    return (
+      <div className={`speakable-text ${className}`}>
+        <div className="d-flex align-items-start gap-2">
+          <div className="flex-grow-1">
+            {children}
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            disabled
+            aria-label="Audio not available"
+            title="Audio features are not available in this browser"
+          >
+            <VolumeX size={16} />
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   return (

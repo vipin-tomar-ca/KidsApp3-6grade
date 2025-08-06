@@ -206,13 +206,13 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
     
     setExerciseScore(exercisePoints);
     setScore(prev => prev + exercisePoints);
-    setCompletedExercises(prev => new Set([...prev, currentExercise.id]));
+    setCompletedExercises(prev => new Set([...Array.from(prev), currentExercise.id]));
     
     // Save progress
     if (currentLesson) {
       musicEducationService.saveUserProgress({
         lessonId: currentLesson.id,
-        exercisesCompleted: [...completedExercises],
+        exercisesCompleted: Array.from(completedExercises),
         score: score + exercisePoints,
         timeSpent: 0, // TODO: Track actual time
         completedAt: new Date().toISOString(),
@@ -240,7 +240,6 @@ const MusicTheoryComponent: React.FC<MusicTheoryProps> = ({
           <Piano
             noteRange={{ first: firstNote, last: lastNote }}
             playNote={playNote}
-            stopNote={() => {}} // Required prop for stopping notes
             disabled={false}
             keyboardShortcuts={keyboardShortcuts}
             className="piano-component"

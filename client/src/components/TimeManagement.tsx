@@ -42,6 +42,18 @@ const TimeManagement: React.FC<TimeManagementProps> = ({
     return new Date(Date.now() + remainingMinutes * 60 * 1000);
   };
 
+  const handleTimeExpire = () => {
+    setSessionActive(false);
+    setShowTimeUpModal(true);
+    
+    if (sessionStartTime) {
+      const sessionTime = Math.floor((Date.now() - sessionStartTime.getTime()) / (1000 * 60));
+      onSessionEnd?.(sessionTime);
+    }
+    
+    onTimeUp?.();
+  };
+
   const {
     seconds,
     minutes,
@@ -91,18 +103,6 @@ const TimeManagement: React.FC<TimeManagementProps> = ({
     } catch (error) {
       console.error('Error loading daily time used:', error);
     }
-  };
-
-  const handleTimeExpire = () => {
-    setSessionActive(false);
-    setShowTimeUpModal(true);
-    
-    if (sessionStartTime) {
-      const sessionTime = Math.floor((Date.now() - sessionStartTime.getTime()) / (1000 * 60));
-      onSessionEnd?.(sessionTime);
-    }
-    
-    onTimeUp?.();
   };
 
   const getSessionTimeSpent = (): number => {
