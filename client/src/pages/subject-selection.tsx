@@ -4,16 +4,15 @@ import { NavigationHeader } from "@/components/ui/navigation-header";
 import { ArrowLeft, BookOpen, Calculator, FlaskConical, Globe, Music, Palette, Play, Trophy } from "lucide-react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "wouter";
 import { Button as BootstrapButton, Container, Row, Col } from "react-bootstrap";
 import { cn } from "@/lib/utils";
 
 export default function SubjectSelection() {
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [location, navigate] = useLocation();
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
   
-  const selectedGrade = location.state?.selectedGrade || 3;
+  const selectedGrade = 4; // Default grade for now
 
   const coreSubjects = [
     {
@@ -97,16 +96,21 @@ export default function SubjectSelection() {
   const handleSubjectSelect = (subjectId: string) => {
     setSelectedSubject(subjectId);
     setTimeout(() => {
-      // Navigate to content browser for core subjects, or original pages for creative subjects
-      if (['math', 'english', 'science', 'social-studies'].includes(subjectId)) {
-        navigate('/content-browser', { 
-          state: { 
-            grade: selectedGrade, 
-            subject: subjectId === 'english' ? 'english' : subjectId === 'social-studies' ? 'social-studies' : subjectId
-          } 
-        });
+      // Navigate to specific subject pages
+      if (subjectId === 'math') {
+        navigate('/math');
+      } else if (subjectId === 'english') {
+        navigate('/reading');
+      } else if (subjectId === 'science') {
+        navigate('/science');
+      } else if (subjectId === 'art') {
+        navigate('/art');
+      } else if (subjectId === 'music') {
+        navigate('/music');
+      } else if (subjectId === 'olympiad') {
+        navigate('/olympiad');
       } else {
-        navigate(`/${subjectId}`, { state: { selectedGrade, selectedSubject: subjectId } });
+        navigate(`/${subjectId}`);
       }
     }, 500);
   };
@@ -125,7 +129,10 @@ export default function SubjectSelection() {
       {/* Navigation Header */}
       <NavigationHeader 
         title={`${gradeInfo[selectedGrade as keyof typeof gradeInfo]?.title} Subjects`}
+        showBack={true}
+        onBack={() => navigate('/grade-selection')}
         progress={selectedGrade * 20}
+        theme="light"
       />
       
       <Container fluid className="py-4">
